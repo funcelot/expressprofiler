@@ -122,58 +122,55 @@ namespace ExpressProfiler
             public TraceSettings GetCopy()
             {
                 return new TraceSettings
-                           {
+                {
                                
-                               EventsColumns = new TraceEventsColumns
-                                                   {
-                                                BatchCompleted = EventsColumns.BatchCompleted,
-                                                BatchStarting = EventsColumns.BatchStarting,
-                                                ExistingConnection = EventsColumns.ExistingConnection,
-                                                LoginLogout = EventsColumns.LoginLogout,
-                                                RPCCompleted = EventsColumns.RPCCompleted,
-                                                RPCStarting = EventsColumns.RPCStarting,
-                                                SPStmtCompleted = EventsColumns.SPStmtCompleted,
-                                                SPStmtStarting = EventsColumns.SPStmtStarting,
-                                                UserErrorMessage = EventsColumns.UserErrorMessage,
-                                                ApplicationName = EventsColumns.ApplicationName,
-                                                HostName = EventsColumns.HostName,
-                                                DatabaseName = EventsColumns.DatabaseName,
-                                                EndTime = EventsColumns.EndTime,
-                                                ObjectName = EventsColumns.ObjectName,
-                                                StartTime = EventsColumns.StartTime,
-                                                BlockedProcessPeport =  EventsColumns.BlockedProcessPeport,
-                                                SQLStmtStarting = EventsColumns.SQLStmtStarting,
-                                                SQLStmtCompleted = EventsColumns.SQLStmtCompleted
-                                            }
-                               ,Filters =  new TraceFilters
-                                               {
-                                                  CPU = Filters.CPU,
-                                                  CpuFilterCondition = Filters.CpuFilterCondition,
-                                                  DatabaseName = Filters.DatabaseName,
-                                                  DatabaseNameFilterCondition = Filters.DatabaseNameFilterCondition,
-                                                  Duration = Filters.Duration,
-                                                  DurationFilterCondition = Filters.DurationFilterCondition,
-                                                  LoginName = Filters.LoginName,
-                                                  HostName = Filters.HostName,
-                                                  HostNameFilterCondition = Filters.HostNameFilterCondition,
-                                                  LoginNameFilterCondition = Filters.LoginNameFilterCondition,
-                                                  Reads = Filters.Reads,
-                                                  ReadsFilterCondition = Filters.ReadsFilterCondition,
-                                                  TextData = Filters.TextData,
-                                                  TextDataFilterCondition = Filters.TextDataFilterCondition,
-                                                  Writes = Filters.Writes,
-                                                  WritesFilterCondition = Filters.WritesFilterCondition,
-                                                  MaximumEventCount = Filters.MaximumEventCount,
-                                                  SPID = Filters.SPID,
-                                                  SPIDFilterCondition =  Filters.SPIDFilterCondition,
-                                                  ApplicationName = Filters.ApplicationName,
-                                                  ApplicationNameFilterCondition = Filters.ApplicationNameFilterCondition,
-
-                                              }
-                           }
-                    ;
+                    EventsColumns = new TraceEventsColumns
+                    {
+                        BatchCompleted = EventsColumns.BatchCompleted,
+                        BatchStarting = EventsColumns.BatchStarting,
+                        ExistingConnection = EventsColumns.ExistingConnection,
+                        LoginLogout = EventsColumns.LoginLogout,
+                        RPCCompleted = EventsColumns.RPCCompleted,
+                        RPCStarting = EventsColumns.RPCStarting,
+                        SPStmtCompleted = EventsColumns.SPStmtCompleted,
+                        SPStmtStarting = EventsColumns.SPStmtStarting,
+                        UserErrorMessage = EventsColumns.UserErrorMessage,
+                        ApplicationName = EventsColumns.ApplicationName,
+                        HostName = EventsColumns.HostName,
+                        DatabaseName = EventsColumns.DatabaseName,
+                        EndTime = EventsColumns.EndTime,
+                        ObjectName = EventsColumns.ObjectName,
+                        StartTime = EventsColumns.StartTime,
+                        BlockedProcessPeport =  EventsColumns.BlockedProcessPeport,
+                        SQLStmtStarting = EventsColumns.SQLStmtStarting,
+                        SQLStmtCompleted = EventsColumns.SQLStmtCompleted
+                    },
+                    Filters =  new TraceFilters
+                    {
+                        CPU = Filters.CPU,
+                        CpuFilterCondition = Filters.CpuFilterCondition,
+                        DatabaseName = Filters.DatabaseName,
+                        DatabaseNameFilterCondition = Filters.DatabaseNameFilterCondition,
+                        Duration = Filters.Duration,
+                        DurationFilterCondition = Filters.DurationFilterCondition,
+                        LoginName = Filters.LoginName,
+                        HostName = Filters.HostName,
+                        HostNameFilterCondition = Filters.HostNameFilterCondition,
+                        LoginNameFilterCondition = Filters.LoginNameFilterCondition,
+                        Reads = Filters.Reads,
+                        ReadsFilterCondition = Filters.ReadsFilterCondition,
+                        TextData = Filters.TextData,
+                        TextDataFilterCondition = Filters.TextDataFilterCondition,
+                        Writes = Filters.Writes,
+                        WritesFilterCondition = Filters.WritesFilterCondition,
+                        MaximumEventCount = Filters.MaximumEventCount,
+                        SPID = Filters.SPID,
+                        SPIDFilterCondition =  Filters.SPIDFilterCondition,
+                        ApplicationName = Filters.ApplicationName,
+                        ApplicationNameFilterCondition = Filters.ApplicationNameFilterCondition,
+                    }
+                };
             }
-
         }
 
         [Serializable]
@@ -295,6 +292,7 @@ namespace ExpressProfiler
             [Category(@"CPU")]
             [DisplayName(@"Condition")]
             public IntFilterCondition CpuFilterCondition { get; set; }
+
             [Category(@"CPU")]
             [DisplayName(@"Value")]
             public int? CPU { get; set; }
@@ -302,6 +300,7 @@ namespace ExpressProfiler
             [Category(@"DatabaseName")]
             [DisplayName(@"Condition")]
             public StringFilterCondition DatabaseNameFilterCondition { get; set; }
+
             [Category(@"DatabaseName")]
             [DisplayName(@"Value")]
             public string DatabaseName { get; set; }
@@ -309,6 +308,7 @@ namespace ExpressProfiler
             [Category(@"Duration")]
             [DisplayName(@"Condition")]
             public IntFilterCondition DurationFilterCondition { get; set; }
+
             [Category(@"Duration")]
             [DisplayName(@"Value")]
             public int? Duration { get; set; }
@@ -316,6 +316,7 @@ namespace ExpressProfiler
             [Category(@"LoginName")]
             [DisplayName(@"Condition")]
             public StringFilterCondition LoginNameFilterCondition { get; set; }
+
             [Category(@"LoginName")]
             [DisplayName(@"Value")]
             public string LoginName { get; set; }
@@ -323,14 +324,15 @@ namespace ExpressProfiler
             [Category(@"HostName")]
             [DisplayName(@"Condition")]
             public StringFilterCondition HostNameFilterCondition { get; set; }
+
             [Category(@"HostName")]
             [DisplayName(@"Value")]
             public string HostName { get; set; }
 
-
             [Category(@"Reads")]
             [DisplayName(@"Condition")]
             public IntFilterCondition ReadsFilterCondition { get; set; }
+
             [Category(@"Reads")]
             [DisplayName(@"Value")]
             public int? Reads { get; set; }
@@ -338,6 +340,7 @@ namespace ExpressProfiler
             [Category(@"TextData")]
             [DisplayName(@"Condition")]
             public StringFilterCondition TextDataFilterCondition { get; set; }
+
             [Category(@"TextData")]
             [DisplayName(@"Value")]
             public string TextData { get; set; }
@@ -358,6 +361,7 @@ namespace ExpressProfiler
             [Category(@"SPID")]
             [DisplayName(@"Condition")]
             public IntFilterCondition SPIDFilterCondition { get; set; }
+
             [Category(@"SPID")]
             [DisplayName(@"Value")]
             public int? SPID { get; set; }
@@ -365,10 +369,10 @@ namespace ExpressProfiler
             [Category(@"ApplicationName")]
             [DisplayName(@"Condition")]
             public StringFilterCondition ApplicationNameFilterCondition { get; set; }
+
             [Category(@"ApplicationName")]
             [DisplayName(@"Value")]
             public string ApplicationName { get; set; }
-
         }
     }
 }
