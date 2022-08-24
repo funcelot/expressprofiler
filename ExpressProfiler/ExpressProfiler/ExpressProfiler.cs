@@ -176,8 +176,11 @@ namespace ExpressProfiler
             try
             {
                 string[] args = Environment.GetCommandLineArgs();
-                if (args.Length == 1)
+                if (args.Length == 1 || args[2].ToLower() == "-h" ||  || args[2].ToLower() == "--help")
                 {
+                    Console.WriteLine("-h");
+                    Console.WriteLine("-help");
+                    Console.WriteLine("    Help");
                     Console.WriteLine("-s");
                     Console.WriteLine("-server");
                     Console.WriteLine("    Server name");
