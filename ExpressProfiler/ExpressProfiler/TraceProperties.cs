@@ -176,8 +176,6 @@ namespace ExpressProfiler
 
         }
 
-        internal TraceSettings m_currentsettings;
-
         [Serializable]
         public class TraceEventsColumns
         {
