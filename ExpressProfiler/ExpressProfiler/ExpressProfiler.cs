@@ -176,7 +176,7 @@ namespace ExpressProfiler
             try
             {
                 string[] args = Environment.GetCommandLineArgs();
-                if (args.Length == 0)
+                if (args.Length == 1)
                 {
                     Console.WriteLine("-s");
                     Console.WriteLine("-server");
