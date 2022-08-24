@@ -355,7 +355,7 @@ namespace ExpressProfiler
 
             [Category(@"Maximum events count")]
             [DisplayName(@"Maximum events count")]
-//            [DefaultValue(5000)]
+            //[DefaultValue(5000)]
             public int MaximumEventCount { get; set; }
 
             [Category(@"SPID")]
