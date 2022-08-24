@@ -13,7 +13,6 @@ namespace ExpressProfiler
         static void Main()
         {
             ILogger Logger;
-            ExpressProfiler client = null;
             try
             {
                 WickesAppLogger.Initialize(ExpressProfiler.versionString);
