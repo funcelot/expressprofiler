@@ -27,7 +27,6 @@ namespace ExpressProfiler
 
         private RawTraceReader m_Rdr;
 
-        private readonly  YukonLexer m_Lex = new YukonLexer();
         private SqlConnection m_Conn;
         private readonly SqlCommand m_Cmd = new SqlCommand();
         private Thread m_Thr;
