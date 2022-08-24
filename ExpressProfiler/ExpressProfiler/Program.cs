@@ -18,18 +18,16 @@ namespace ExpressProfiler
             {
                 WickesAppLogger.Initialize(ExpressProfiler.versionString);
                 Logger = AppLogger.CreateLogger<ExpressProfiler>();
-                client = new ExpressProfiler();
+                using (client = new ExpressProfiler())
+                {
+                    client.StartProfiling();
+                }
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex);
                 Environment.ExitCode = 1;
                 return;
-            }
-            finally 
-            {
-                if (client != null)
-                    client.StopProfiling();
             }
         }
 

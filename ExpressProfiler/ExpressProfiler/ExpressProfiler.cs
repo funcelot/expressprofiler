@@ -13,7 +13,7 @@ using Wickes.Logging;
 
 namespace ExpressProfiler
 {
-    public class ExpressProfiler
+    public class ExpressProfiler: IDisposable
     {
         private static readonly ILogger Logger = AppLogger.CreateLogger<ExpressProfiler>();
 
@@ -38,7 +38,6 @@ namespace ExpressProfiler
         private string m_record = "";
         Queue<ProfilerEvent> m_events = new Queue<ProfilerEvent>(10);
         private readonly List<PerfColumn> m_columns = new List<PerfColumn>();
-        private bool m_autostart = false;
         private bool m_success = false;
         private Timer m_timer;
 
@@ -52,44 +51,43 @@ namespace ExpressProfiler
 
         public ExpressProfiler()
         {
+            if (!ParseCommandLine())
+            {
+                return;
+            }
+
             m_servername = Properties.Settings.Default.ServerName;
             m_username = Properties.Settings.Default.UserName;
             m_currentsettings = GetDefaultSettings();
-            m_success = ParseCommandLine();
-            if (m_success)
+
+
+            m_columns.Add(new PerfColumn { Caption = "Event Class", Column = ProfilerEventColumns.EventClass });
+            m_columns.Add(new PerfColumn { Caption = "Text Data", Column = ProfilerEventColumns.TextData });
+            m_columns.Add(new PerfColumn { Caption = "Login Name", Column = ProfilerEventColumns.LoginName });
+            m_columns.Add(new PerfColumn { Caption = "CPU", Column = ProfilerEventColumns.CPU, Format = "#,0" });
+            m_columns.Add(new PerfColumn { Caption = "Reads", Column = ProfilerEventColumns.Reads, Format = "#,0" });
+            m_columns.Add(new PerfColumn { Caption = "Writes", Column = ProfilerEventColumns.Writes, Format = "#,0" });
+            m_columns.Add(new PerfColumn { Caption = "Duration, ms", Column = ProfilerEventColumns.Duration, Format = "#,0" });
+            m_columns.Add(new PerfColumn { Caption = "SPID", Column = ProfilerEventColumns.SPID });
+
+            if (m_currentsettings.EventsColumns.StartTime) m_columns.Add(new PerfColumn { Caption = "Start time", Column = ProfilerEventColumns.StartTime, Format = "yyyy-MM-dd hh:mm:ss.ffff" });
+            if (m_currentsettings.EventsColumns.EndTime) m_columns.Add(new PerfColumn { Caption = "End time", Column = ProfilerEventColumns.EndTime, Format = "yyyy-MM-dd hh:mm:ss.ffff" });
+            if (m_currentsettings.EventsColumns.DatabaseName) m_columns.Add(new PerfColumn { Caption = "DatabaseName", Column = ProfilerEventColumns.DatabaseName });
+            if (m_currentsettings.EventsColumns.ObjectName) m_columns.Add(new PerfColumn { Caption = "Object name", Column = ProfilerEventColumns.ObjectName });
+            if (m_currentsettings.EventsColumns.ApplicationName) m_columns.Add(new PerfColumn { Caption = "Application name", Column = ProfilerEventColumns.ApplicationName });
+            if (m_currentsettings.EventsColumns.HostName) m_columns.Add(new PerfColumn { Caption = "Host name", Column = ProfilerEventColumns.HostName });
+
+            m_columns.Add(new PerfColumn { Caption = "#", Column = -1 });
+
+            StringBuilder columns = new StringBuilder();
+            columns.Append(m_columns[0].Caption);
+            for (int i = 1; i < m_columns.Count; i++)
             {
-                m_columns.Add(new PerfColumn { Caption = "Event Class", Column = ProfilerEventColumns.EventClass });
-                m_columns.Add(new PerfColumn { Caption = "Text Data", Column = ProfilerEventColumns.TextData });
-                m_columns.Add(new PerfColumn { Caption = "Login Name", Column = ProfilerEventColumns.LoginName });
-                m_columns.Add(new PerfColumn { Caption = "CPU", Column = ProfilerEventColumns.CPU, Format = "#,0" });
-                m_columns.Add(new PerfColumn { Caption = "Reads", Column = ProfilerEventColumns.Reads, Format = "#,0" });
-                m_columns.Add(new PerfColumn { Caption = "Writes", Column = ProfilerEventColumns.Writes, Format = "#,0" });
-                m_columns.Add(new PerfColumn { Caption = "Duration, ms", Column = ProfilerEventColumns.Duration, Format = "#,0" });
-                m_columns.Add(new PerfColumn { Caption = "SPID", Column = ProfilerEventColumns.SPID });
-
-                if (m_currentsettings.EventsColumns.StartTime) m_columns.Add(new PerfColumn { Caption = "Start time", Column = ProfilerEventColumns.StartTime, Format = "yyyy-MM-dd hh:mm:ss.ffff" });
-                if (m_currentsettings.EventsColumns.EndTime) m_columns.Add(new PerfColumn { Caption = "End time", Column = ProfilerEventColumns.EndTime, Format = "yyyy-MM-dd hh:mm:ss.ffff" });
-                if (m_currentsettings.EventsColumns.DatabaseName) m_columns.Add(new PerfColumn { Caption = "DatabaseName", Column = ProfilerEventColumns.DatabaseName });
-                if (m_currentsettings.EventsColumns.ObjectName) m_columns.Add(new PerfColumn { Caption = "Object name", Column = ProfilerEventColumns.ObjectName });
-                if (m_currentsettings.EventsColumns.ApplicationName) m_columns.Add(new PerfColumn { Caption = "Application name", Column = ProfilerEventColumns.ApplicationName });
-                if (m_currentsettings.EventsColumns.HostName) m_columns.Add(new PerfColumn { Caption = "Host name", Column = ProfilerEventColumns.HostName });
-
-                m_columns.Add(new PerfColumn { Caption = "#", Column = -1 });
-
-                StringBuilder columns = new StringBuilder();
-                columns.Append(m_columns[0].Caption);
-                for (int i = 1; i < m_columns.Count; i++)
-                {
-                    columns.AppendFormat(" {0}", m_columns[i].Caption);
-                }
-                m_record = columns.ToString();
-
-                m_timer = new Timer(timer_Elapsed, null, 0, Timeout.Infinite);
-                if (m_autostart)
-                {
-                    StartProfiling();
-                }
+                columns.AppendFormat(" {0}", m_columns[i].Caption);
             }
+            m_record = columns.ToString();
+
+            m_timer = new Timer(timer_Elapsed, null, 0, Timeout.Infinite);
         }
 
         private TraceProperties.TraceSettings GetDefaultSettings()
@@ -189,6 +187,12 @@ namespace ExpressProfiler
                     Console.WriteLine("-p");
                     Console.WriteLine("-password");
                     Console.WriteLine("    User password");
+                    Console.WriteLine("-m");
+                    Console.WriteLine("-maxevents");
+                    Console.WriteLine("    Maximum number of events");
+                    Console.WriteLine("-d");
+                    Console.WriteLine("-duration");
+                    Console.WriteLine("    Duration");
                     return false;
                 }
                 else
@@ -230,9 +234,6 @@ namespace ExpressProfiler
                                 }
 
                                 break;
-                            case "-start":
-                                m_autostart = true;
-                                break;
                             case "-batchcompleted":
                                 m_currentsettings.EventsColumns.BatchCompleted = true;
                                 break;
@@ -269,6 +270,7 @@ namespace ExpressProfiler
                     {
                         m_servername = @".";
                     }
+
                     return true;
                 }
             }
@@ -276,6 +278,7 @@ namespace ExpressProfiler
             {
                 Logger.LogError(e, "Error");
             }
+
             return false;
         }
 
@@ -327,105 +330,105 @@ namespace ExpressProfiler
 
         public void StartProfiling()
         {
-            if (!m_success)
-            {
-                return;
-            }
             try
             {
+                if (m_success)
+                {
+                    return;
+                }
+
                 if (m_Conn != null && m_Conn.State == ConnectionState.Open)
                 {
                     m_Conn.Close();
                 }
+
                 m_EventCount = 0;
+
                 m_Conn = GetConnection();
                 m_Conn.Open();
+                
                 m_Rdr = new RawTraceReader(m_Conn);
-
                 m_Rdr.CreateTrace();
-                if (true)
+
+                if (m_currentsettings.EventsColumns.LoginLogout)
                 {
-                    if (m_currentsettings.EventsColumns.LoginLogout)
-                    {
-                        m_Rdr.SetEvent(ProfilerEvents.SecurityAudit.AuditLogin,
-                                       ProfilerEventColumns.TextData,
-                                       ProfilerEventColumns.LoginName,
-                                       ProfilerEventColumns.SPID,
-                                       ProfilerEventColumns.StartTime,
-                                       ProfilerEventColumns.EndTime,
-                                       ProfilerEventColumns.HostName
-                            );
-                        m_Rdr.SetEvent(ProfilerEvents.SecurityAudit.AuditLogout,
-                                       ProfilerEventColumns.CPU,
-                                       ProfilerEventColumns.Reads,
-                                       ProfilerEventColumns.Writes,
-                                       ProfilerEventColumns.Duration,
-                                       ProfilerEventColumns.LoginName,
-                                       ProfilerEventColumns.SPID,
-                                       ProfilerEventColumns.StartTime,
-                                       ProfilerEventColumns.EndTime,
-                                       ProfilerEventColumns.ApplicationName,
-                                       ProfilerEventColumns.HostName
-                            );
-                    }
+                    m_Rdr.SetEvent(ProfilerEvents.SecurityAudit.AuditLogin,
+                                    ProfilerEventColumns.TextData,
+                                    ProfilerEventColumns.LoginName,
+                                    ProfilerEventColumns.SPID,
+                                    ProfilerEventColumns.StartTime,
+                                    ProfilerEventColumns.EndTime,
+                                    ProfilerEventColumns.HostName
+                        );
+                    m_Rdr.SetEvent(ProfilerEvents.SecurityAudit.AuditLogout,
+                                    ProfilerEventColumns.CPU,
+                                    ProfilerEventColumns.Reads,
+                                    ProfilerEventColumns.Writes,
+                                    ProfilerEventColumns.Duration,
+                                    ProfilerEventColumns.LoginName,
+                                    ProfilerEventColumns.SPID,
+                                    ProfilerEventColumns.StartTime,
+                                    ProfilerEventColumns.EndTime,
+                                    ProfilerEventColumns.ApplicationName,
+                                    ProfilerEventColumns.HostName
+                        );
+                }
 
-                    if (m_currentsettings.EventsColumns.ExistingConnection)
-                    {
-                        m_Rdr.SetEvent(ProfilerEvents.Sessions.ExistingConnection,
-                                       ProfilerEventColumns.TextData,
-                                       ProfilerEventColumns.SPID,
-                                       ProfilerEventColumns.StartTime,
-                                       ProfilerEventColumns.EndTime,
-                                       ProfilerEventColumns.ApplicationName,
-                                       ProfilerEventColumns.HostName
-                            );
-                    }
-                    if (m_currentsettings.EventsColumns.BatchCompleted)
-                    {
-                        m_Rdr.SetEvent(ProfilerEvents.TSQL.SQLBatchCompleted,
-                                       ProfilerEventColumns.TextData,
-                                       ProfilerEventColumns.LoginName,
-                                       ProfilerEventColumns.CPU,
-                                       ProfilerEventColumns.Reads,
-                                       ProfilerEventColumns.Writes,
-                                       ProfilerEventColumns.Duration,
-                                       ProfilerEventColumns.SPID,
-                                       ProfilerEventColumns.StartTime,
-                                       ProfilerEventColumns.EndTime,
-                                       ProfilerEventColumns.DatabaseName,
-                                       ProfilerEventColumns.ApplicationName,
-                                       ProfilerEventColumns.HostName
-                            );
-                    }
-                    if (m_currentsettings.EventsColumns.BatchStarting)
-                    {
-                        m_Rdr.SetEvent(ProfilerEvents.TSQL.SQLBatchStarting,
-                                       ProfilerEventColumns.TextData,
-                                       ProfilerEventColumns.LoginName,
-                                       ProfilerEventColumns.SPID,
-                                       ProfilerEventColumns.StartTime,
-                                       ProfilerEventColumns.EndTime,
-                                       ProfilerEventColumns.DatabaseName,
-                                       ProfilerEventColumns.ApplicationName,
-                                       ProfilerEventColumns.HostName
-                            );
-                    }
-                    if (m_currentsettings.EventsColumns.RPCStarting)
-                    {
-                        m_Rdr.SetEvent(ProfilerEvents.StoredProcedures.RPCStarting,
-                                       ProfilerEventColumns.TextData,
-                                       ProfilerEventColumns.LoginName,
-                                       ProfilerEventColumns.SPID,
-                                       ProfilerEventColumns.StartTime,
-                                       ProfilerEventColumns.EndTime,
-                                       ProfilerEventColumns.DatabaseName,
-                                       ProfilerEventColumns.ObjectName,
-                                       ProfilerEventColumns.ApplicationName,
-                                       ProfilerEventColumns.HostName
+                if (m_currentsettings.EventsColumns.ExistingConnection)
+                {
+                    m_Rdr.SetEvent(ProfilerEvents.Sessions.ExistingConnection,
+                                    ProfilerEventColumns.TextData,
+                                    ProfilerEventColumns.SPID,
+                                    ProfilerEventColumns.StartTime,
+                                    ProfilerEventColumns.EndTime,
+                                    ProfilerEventColumns.ApplicationName,
+                                    ProfilerEventColumns.HostName
+                        );
+                }
+                if (m_currentsettings.EventsColumns.BatchCompleted)
+                {
+                    m_Rdr.SetEvent(ProfilerEvents.TSQL.SQLBatchCompleted,
+                                    ProfilerEventColumns.TextData,
+                                    ProfilerEventColumns.LoginName,
+                                    ProfilerEventColumns.CPU,
+                                    ProfilerEventColumns.Reads,
+                                    ProfilerEventColumns.Writes,
+                                    ProfilerEventColumns.Duration,
+                                    ProfilerEventColumns.SPID,
+                                    ProfilerEventColumns.StartTime,
+                                    ProfilerEventColumns.EndTime,
+                                    ProfilerEventColumns.DatabaseName,
+                                    ProfilerEventColumns.ApplicationName,
+                                    ProfilerEventColumns.HostName
+                        );
+                }
+                if (m_currentsettings.EventsColumns.BatchStarting)
+                {
+                    m_Rdr.SetEvent(ProfilerEvents.TSQL.SQLBatchStarting,
+                                    ProfilerEventColumns.TextData,
+                                    ProfilerEventColumns.LoginName,
+                                    ProfilerEventColumns.SPID,
+                                    ProfilerEventColumns.StartTime,
+                                    ProfilerEventColumns.EndTime,
+                                    ProfilerEventColumns.DatabaseName,
+                                    ProfilerEventColumns.ApplicationName,
+                                    ProfilerEventColumns.HostName
+                        );
+                }
+                if (m_currentsettings.EventsColumns.RPCStarting)
+                {
+                    m_Rdr.SetEvent(ProfilerEvents.StoredProcedures.RPCStarting,
+                                    ProfilerEventColumns.TextData,
+                                    ProfilerEventColumns.LoginName,
+                                    ProfilerEventColumns.SPID,
+                                    ProfilerEventColumns.StartTime,
+                                    ProfilerEventColumns.EndTime,
+                                    ProfilerEventColumns.DatabaseName,
+                                    ProfilerEventColumns.ObjectName,
+                                    ProfilerEventColumns.ApplicationName,
+                                    ProfilerEventColumns.HostName
 
-                            );
-                    }
-
+                        );
                 }
                 if (m_currentsettings.EventsColumns.RPCCompleted)
                 {
@@ -546,15 +549,49 @@ namespace ExpressProfiler
 
                 m_Cmd.Connection = m_Conn;
                 m_Cmd.CommandTimeout = 0;
-                m_Rdr.SetFilter(ProfilerEventColumns.ApplicationName, LogicalOperators.AND, ComparisonOperators.NotLike,
-                                "Express Profiler");
-                m_events.Clear();
+
+                m_Rdr.SetFilter(ProfilerEventColumns.ApplicationName, LogicalOperators.AND, ComparisonOperators.NotLike, "Express Profiler");
+
                 SaveDefaultSettings();
+
                 StartProfilerThread();
+
+                m_success = true;
             }
             catch (Exception e)
             {
                 Logger.LogError(e, "Error");
+            }
+        }
+
+        public void StopProfiling()
+        {
+            try
+            {
+                if (!m_success)
+                {
+                    return;
+                }
+
+                using (SqlConnection cn = GetConnection())
+                {
+                    cn.Open();
+                    m_Rdr.StopTrace(cn);
+                    m_Rdr.CloseTrace(cn);
+                    cn.Close();
+                }
+                m_NeedStop = true;
+                if (m_Thr.IsAlive)
+                {
+                    m_Thr.Abort();
+                }
+                m_Thr.Join();
+
+                m_success = false;
+            }
+            catch (Exception e)
+            {
+                Logger.LogError(e, "");
             }
         }
 
@@ -589,33 +626,18 @@ namespace ExpressProfiler
         }
 
         private void StartProfilerThread()
-        { 
-            if(m_Rdr!=null)
+        {
+            if (m_Rdr != null)
             {
                 m_Rdr.Close();
+                m_Rdr = null;
             }
             m_Rdr.StartTrace();
-            m_Thr = new Thread(ProfilerThread) {IsBackground = true, Priority = ThreadPriority.Lowest};
+            m_Thr = new Thread(ProfilerThread) { IsBackground = true, Priority = ThreadPriority.Lowest };
             m_NeedStop = false;
             m_Thr.Start();
         }
 
-        public void StopProfiling()
-        {
-            using (SqlConnection cn = GetConnection())
-            {
-                cn.Open();
-                m_Rdr.StopTrace(cn);
-                m_Rdr.CloseTrace(cn);
-                cn.Close();
-            }
-            m_NeedStop = true;
-            if (m_Thr.IsAlive)
-            {
-                m_Thr.Abort();
-            }
-            m_Thr.Join();
-        }
 
         private void timer_Elapsed(object state)
         {
@@ -628,6 +650,14 @@ namespace ExpressProfiler
                 {
                     NewEventArrived(saved.Dequeue());
                 }
+            }
+        }
+
+        public void Dispose()
+        {
+            if (m_success)
+            {
+                StopProfiling();
             }
         }
     }
