@@ -3,9 +3,12 @@
   <Profiles />
   <Settings>
     <Setting Name="ServerName" Type="System.String" Scope="User">
-      <Value Profile="(Default)">.\SQLExpress</Value>
+      <Value Profile="(Default)">.</Value>
     </Setting>
     <Setting Name="UserName" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="UserPassword" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="TraceSettings" Type="System.String" Scope="User">

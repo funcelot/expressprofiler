@@ -1,0 +1,33 @@
+using System;
+using System.Runtime.InteropServices;
+
+namespace Wickes
+{
+    [ComVisible(true)]
+    [Guid("EA6DDEC7-8FFD-4F16-AB8F-5A33337B8242")]
+    [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)] 
+    public interface IAppEnvironment
+    {
+        bool IsDevEnvironment();
+        bool IsTestEnvironment();
+        bool IsProdEnvironment();
+    }
+
+    [ComVisible(true)]
+    [Guid("DF0D3AE1-ADDC-4438-BCE9-7045433C2751")]
+    public class AppEnvironment : IAppEnvironment
+    {
+        public bool IsDevEnvironment()
+        {
+            return WickesAppEnvironment.IsDevEnvironment;
+        }
+        public bool IsTestEnvironment()
+        {
+            return WickesAppEnvironment.IsTestEnvironment;
+        }
+        public bool IsProdEnvironment()
+        {
+            return WickesAppEnvironment.IsProdEnvironment;
+        }
+    }
+}

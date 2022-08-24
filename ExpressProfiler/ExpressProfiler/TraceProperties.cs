@@ -102,7 +102,7 @@ namespace ExpressProfiler
                                     };
                 Filters = new TraceFilters
                               {
-                                  MaximumEventCount = 5000,
+                                  MaximumEventCount = 500,
                                   CpuFilterCondition = IntFilterCondition.GreaterThan,
                                   ReadsFilterCondition = IntFilterCondition.GreaterThan,
                                   WritesFilterCondition = IntFilterCondition.GreaterThan,

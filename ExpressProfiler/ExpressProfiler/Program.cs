@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
+using Wickes;
+using Wickes.Logging;
 
 namespace ExpressProfiler
 {
@@ -11,16 +13,31 @@ namespace ExpressProfiler
         [STAThread]
         static void Main()
         {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.SetUnhandledExceptionMode(UnhandledExceptionMode.Automatic);
-            AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
-            Application.Run(new MainForm());
+            ILogger Logger;
+            ExpressProfiler client = null;
+            try
+            {
+                WickesAppLogger.Initialize("ExpressProfiler");
+                Logger = AppLogger.CreateLogger<ExpressProfiler>();
+                client = new ExpressProfiler();
+                client.StartProfiling();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                Environment.ExitCode = 1;
+                return;
+            }
+            finally 
+            {
+                if (client != null)
+                    client.StopProfiling();
+            }
         }
 
         private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            MessageBox.Show(((Exception)e.ExceptionObject).Message , "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //MessageBox.Show(((Exception)e.ExceptionObject).Message , "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
     }
