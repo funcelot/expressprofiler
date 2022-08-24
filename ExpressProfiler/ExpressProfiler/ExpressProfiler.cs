@@ -46,6 +46,7 @@ namespace ExpressProfiler
         private readonly List<PerfColumn> m_columns = new List<PerfColumn>();
         internal bool matchCase = false;
         internal bool wholeWord = false;
+        private bool m_success = false;
         private Timer m_timer;
 
         public ExpressProfiler()
@@ -54,8 +55,27 @@ namespace ExpressProfiler
             m_username = Properties.Settings.Default.UserName;
             m_currentsettings = GetDefaultSettings();
             m_timer = new Timer(timer_Elapsed, null, 0, Timeout.Infinite);
-            ParseCommandLine();
-            InitLV();
+            m_success = ParseCommandLine();
+            if (m_success)
+            {
+                m_columns.Add(new PerfColumn { Caption = "Event Class", Column = ProfilerEventColumns.EventClass });
+                m_columns.Add(new PerfColumn { Caption = "Text Data", Column = ProfilerEventColumns.TextData });
+                m_columns.Add(new PerfColumn { Caption = "Login Name", Column = ProfilerEventColumns.LoginName });
+                m_columns.Add(new PerfColumn { Caption = "CPU", Column = ProfilerEventColumns.CPU, Format = "#,0" });
+                m_columns.Add(new PerfColumn { Caption = "Reads", Column = ProfilerEventColumns.Reads, Format = "#,0" });
+                m_columns.Add(new PerfColumn { Caption = "Writes", Column = ProfilerEventColumns.Writes, Format = "#,0" });
+                m_columns.Add(new PerfColumn { Caption = "Duration, ms", Column = ProfilerEventColumns.Duration, Format = "#,0" });
+                m_columns.Add(new PerfColumn { Caption = "SPID", Column = ProfilerEventColumns.SPID });
+
+                if (m_currentsettings.EventsColumns.StartTime) m_columns.Add(new PerfColumn { Caption = "Start time", Column = ProfilerEventColumns.StartTime, Format = "yyyy-MM-dd hh:mm:ss.ffff" });
+                if (m_currentsettings.EventsColumns.EndTime) m_columns.Add(new PerfColumn { Caption = "End time", Column = ProfilerEventColumns.EndTime, Format = "yyyy-MM-dd hh:mm:ss.ffff" });
+                if (m_currentsettings.EventsColumns.DatabaseName) m_columns.Add(new PerfColumn { Caption = "DatabaseName", Column = ProfilerEventColumns.DatabaseName });
+                if (m_currentsettings.EventsColumns.ObjectName) m_columns.Add(new PerfColumn { Caption = "Object name", Column = ProfilerEventColumns.ObjectName });
+                if (m_currentsettings.EventsColumns.ApplicationName) m_columns.Add(new PerfColumn { Caption = "Application name", Column = ProfilerEventColumns.ApplicationName });
+                if (m_currentsettings.EventsColumns.HostName) m_columns.Add(new PerfColumn { Caption = "Host name", Column = ProfilerEventColumns.HostName });
+
+                m_columns.Add(new PerfColumn { Caption = "#", Column = -1 });
+            }
         }
 
         private TraceProperties.TraceSettings GetDefaultSettings()
@@ -139,137 +159,120 @@ namespace ExpressProfiler
             return false;
         }
 
-        private void ParseCommandLine()
+        private bool ParseCommandLine()
         {
             try
             {
                 string[] args = Environment.GetCommandLineArgs();
-                int i = 1;
-                while (i < args.Length)
+                if (args.Length == 0)
                 {
-                    string ep = i + 1 < args.Length ? args[i + 1] : "";
-                    switch (args[i].ToLower())
-                    {
-                        case "-s":
-                        case "-server":
-                            m_servername = ep;
-                            i++;
-                            break;
-                        case "-u":
-                        case "-user":
-                            m_username = ep;
-                            i++;
-                            break;
-                        case "-p":
-                        case "-password":
-                            m_userpassword = ep;
-                            i++;
-                            break;
-                        case "-m":
-                        case "-maxevents":
-                            int m;
-                            if (!Int32.TryParse(ep, out m)) m = 500;
-                            m_currentsettings.Filters.MaximumEventCount = m;
-                            break;
-                        case "-d":
-                        case "-duration":
-                            int d;
-                            if (Int32.TryParse(ep, out d))
-                            {
-                                m_currentsettings.Filters.DurationFilterCondition = TraceProperties.IntFilterCondition.GreaterThan;
-                                m_currentsettings.Filters.Duration = d;
-                            }
-
-                            break;
-                        case "-batchcompleted":
-                            m_currentsettings.EventsColumns.BatchCompleted = true;
-                            break;
-                        case "-batchstarting":
-                            m_currentsettings.EventsColumns.BatchStarting = true;
-                            break;
-                        case "-existingconnection":
-                            m_currentsettings.EventsColumns.ExistingConnection = true;
-                            break;
-                        case "-loginlogout":
-                            m_currentsettings.EventsColumns.LoginLogout = true;
-                            break;
-                        case "-rpccompleted":
-                            m_currentsettings.EventsColumns.RPCCompleted = true;
-                            break;
-                        case "-rpcstarting":
-                            m_currentsettings.EventsColumns.RPCStarting = true;
-                            break;
-                        case "-spstmtcompleted":
-                            m_currentsettings.EventsColumns.SPStmtCompleted = true;
-                            break;
-                        case "-spstmtstarting":
-                            m_currentsettings.EventsColumns.SPStmtStarting = true;
-                            break;
-                        default:
-                            if (ParseFilterParam(args, i)) i++;
-                            break;
-
-                    }
-                    i++;
+                    Console.WriteLine("-s");
+                    Console.WriteLine("-server");
+                    Console.WriteLine("    Server name");
+                    Console.WriteLine("-u");
+                    Console.WriteLine("-user");
+                    Console.WriteLine("    User name");
+                    Console.WriteLine("-p");
+                    Console.WriteLine("-password");
+                    Console.WriteLine("    User password");
+                    return false;
                 }
-
-                if (m_servername.Length == 0)
+                else
                 {
-                    m_servername = @".";
+                    int i = 1;
+                    while (i < args.Length)
+                    {
+                        string ep = i + 1 < args.Length ? args[i + 1] : "";
+                        switch (args[i].ToLower())
+                        {
+                            case "-s":
+                            case "-server":
+                                m_servername = ep;
+                                i++;
+                                break;
+                            case "-u":
+                            case "-user":
+                                m_username = ep;
+                                i++;
+                                break;
+                            case "-p":
+                            case "-password":
+                                m_userpassword = ep;
+                                i++;
+                                break;
+                            case "-m":
+                            case "-maxevents":
+                                int m;
+                                if (!Int32.TryParse(ep, out m)) m = 500;
+                                m_currentsettings.Filters.MaximumEventCount = m;
+                                break;
+                            case "-d":
+                            case "-duration":
+                                int d;
+                                if (Int32.TryParse(ep, out d))
+                                {
+                                    m_currentsettings.Filters.DurationFilterCondition = TraceProperties.IntFilterCondition.GreaterThan;
+                                    m_currentsettings.Filters.Duration = d;
+                                }
+
+                                break;
+                            case "-batchcompleted":
+                                m_currentsettings.EventsColumns.BatchCompleted = true;
+                                break;
+                            case "-batchstarting":
+                                m_currentsettings.EventsColumns.BatchStarting = true;
+                                break;
+                            case "-existingconnection":
+                                m_currentsettings.EventsColumns.ExistingConnection = true;
+                                break;
+                            case "-loginlogout":
+                                m_currentsettings.EventsColumns.LoginLogout = true;
+                                break;
+                            case "-rpccompleted":
+                                m_currentsettings.EventsColumns.RPCCompleted = true;
+                                break;
+                            case "-rpcstarting":
+                                m_currentsettings.EventsColumns.RPCStarting = true;
+                                break;
+                            case "-spstmtcompleted":
+                                m_currentsettings.EventsColumns.SPStmtCompleted = true;
+                                break;
+                            case "-spstmtstarting":
+                                m_currentsettings.EventsColumns.SPStmtStarting = true;
+                                break;
+                            default:
+                                if (ParseFilterParam(args, i)) i++;
+                                break;
+
+                        }
+                        i++;
+                    }
+
+                    if (m_servername.Length == 0)
+                    {
+                        m_servername = @".";
+                    }
+                    return true;
                 }
             }
             catch (Exception e)
             {
                 Logger.LogError(e, "Error");
             }
-        }
-    
-        private void InitLV()
-        {
-            InitColumns();
-        }
-
-        private void InitColumns()
-        {
-            m_columns.Clear();
-            m_columns.Add(new PerfColumn{ Caption = "Event Class", Column = ProfilerEventColumns.EventClass });
-            m_columns.Add(new PerfColumn { Caption = "Text Data", Column = ProfilerEventColumns.TextData });
-            m_columns.Add(new PerfColumn { Caption = "Login Name", Column = ProfilerEventColumns.LoginName });
-            m_columns.Add(new PerfColumn { Caption = "CPU", Column = ProfilerEventColumns.CPU, Format = "#,0" });
-            m_columns.Add(new PerfColumn { Caption = "Reads", Column = ProfilerEventColumns.Reads, Format = "#,0" });
-            m_columns.Add(new PerfColumn { Caption = "Writes", Column = ProfilerEventColumns.Writes, Format = "#,0" });
-            m_columns.Add(new PerfColumn { Caption = "Duration, ms", Column = ProfilerEventColumns.Duration, Format = "#,0" });
-            m_columns.Add(new PerfColumn { Caption = "SPID", Column = ProfilerEventColumns.SPID });
-
-            if (m_currentsettings.EventsColumns.StartTime) m_columns.Add(new PerfColumn { Caption = "Start time", Column = ProfilerEventColumns.StartTime, Format = "yyyy-MM-dd hh:mm:ss.ffff" });
-            if (m_currentsettings.EventsColumns.EndTime) m_columns.Add(new PerfColumn { Caption = "End time", Column = ProfilerEventColumns.EndTime, Format = "yyyy-MM-dd hh:mm:ss.ffff" });
-            if (m_currentsettings.EventsColumns.DatabaseName) m_columns.Add(new PerfColumn { Caption = "DatabaseName", Column = ProfilerEventColumns.DatabaseName });
-            if (m_currentsettings.EventsColumns.ObjectName) m_columns.Add(new PerfColumn { Caption = "Object name", Column = ProfilerEventColumns.ObjectName });
-            if (m_currentsettings.EventsColumns.ApplicationName) m_columns.Add(new PerfColumn { Caption = "Application name", Column = ProfilerEventColumns.ApplicationName });
-            if (m_currentsettings.EventsColumns.HostName) m_columns.Add(new PerfColumn { Caption = "Host name", Column = ProfilerEventColumns.HostName });
-
-            m_columns.Add(new PerfColumn { Caption = "#", Column = -1 });
-        }
-
-        private string GetEventCaption(ProfilerEvent evt)
-        {
-            return ProfilerEvents.Names[evt.EventClass];
-        }
-
-        private string GetFormattedValue(ProfilerEvent evt,int column,string format)
-        {
-            return ProfilerEventColumns.Duration == column ? (evt.Duration / 1000).ToString(format) : evt.GetFormattedData(column, format);
+            return false;
         }
 
         private void NewEventArrived(ProfilerEvent evt)
         {
             m_EventCount++;
-            string caption = GetEventCaption(evt);
+            //string caption = ProfilerEvents.Names[evt.EventClass];
             object[] data = new object[m_columns.Count]; 
             for (int i = 0; i < m_columns.Count - 1; i++)
             {
                 PerfColumn pc = m_columns[i];
-                data[i] = pc.Column == -1 ? m_EventCount.ToString("#,0") : GetFormattedValue(evt, pc.Column, pc.Format) ?? "";
+                data[i] =
+                    pc.Column == -1 ?
+                    m_EventCount.ToString("#,0") : (ProfilerEventColumns.Duration == pc.Column ? (evt.Duration / 1000).ToString(pc.Format) : evt.GetFormattedData(pc.Column, pc.Format)) ?? "";
             }
             Logger.LogInformation(m_EventCount.ToString("#,0"), data);
         }
@@ -307,6 +310,10 @@ namespace ExpressProfiler
 
         public void StartProfiling()
         {
+            if (!m_success)
+            {
+                return;
+            }
             try
             {
                 if (m_Conn != null && m_Conn.State == ConnectionState.Open)
