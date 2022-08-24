@@ -6,13 +6,8 @@ using System.Xml.Serialization;
 
 namespace ExpressProfiler
 {
-
-
-
-    public partial class TraceProperties : Form
+    public partial class TraceProperties
     {
-
-
         public enum StringFilterCondition
         {
             Like,
@@ -26,7 +21,6 @@ namespace ExpressProfiler
             GreaterThan,
             LessThan
         }
-
 
         public static StringFilterCondition ParseStringCondition(string value)
         {
@@ -370,27 +364,7 @@ namespace ExpressProfiler
 
         public TraceProperties()
         {
-            InitializeComponent();
         }
-
-        public void SetSettings(TraceSettings st)
-        {
-            m_currentsettings = st;
-            edEvents.SelectedObject = m_currentsettings.EventsColumns;
-            edFilters.SelectedObject = m_currentsettings.Filters;
-        }
-
-        private void btnReset_Click(object sender, EventArgs e)
-        {
-            SetSettings(TraceSettings.GetDefaultSettings());
-        }
-
-        private void btnSaveAsDefault_Click(object sender, EventArgs e)
-        {
-            Properties.Settings.Default.TraceSettings = m_currentsettings.GetAsXmlString();
-            Properties.Settings.Default.Save();
-        }
-
 
         internal static bool AtLeastOneEventSelected(TraceSettings ts)
         {
@@ -407,17 +381,6 @@ namespace ExpressProfiler
                     || ts.EventsColumns.SQLStmtStarting
                     || ts.EventsColumns.SQLStmtCompleted;
 
-        }
-
-        private void btnRun_Click(object sender, EventArgs e)
-        {
-            if (!AtLeastOneEventSelected(m_currentsettings))
-            {
-                MessageBox.Show("You should select at least 1 event","Starting trace",MessageBoxButtons.OK,MessageBoxIcon.Error);
-                tabControl1.SelectedTab = tabPage2;
-                return;
-            }
-            DialogResult = DialogResult.OK;
         }
 
 	    public bool IsIncluded(ListViewItem lvi)

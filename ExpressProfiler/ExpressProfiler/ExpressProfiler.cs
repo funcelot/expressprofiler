@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.IO;
+using System.Text;
 using System.Threading;
 using System.Xml.Serialization;
 using Wickes.Logging;
@@ -16,7 +17,6 @@ namespace ExpressProfiler
     {
         private static readonly ILogger Logger = AppLogger.CreateLogger<ExpressProfiler>();
 
-        internal const string versionString = "Express Profiler v2.2";
 
         public class PerfColumn
         {
@@ -33,28 +33,29 @@ namespace ExpressProfiler
         private Thread m_Thr;
         private bool m_NeedStop = true;
         private int m_EventCount;
-        private readonly ProfilerEvent m_EventStarted = new ProfilerEvent();
-        private readonly ProfilerEvent m_EventStopped = new ProfilerEvent();
-        private readonly ProfilerEvent m_EventPaused = new ProfilerEvent();
         private string m_servername = "";
         private string m_username = "";
         private string m_userpassword = "";
-        internal int lastpos = -1;
-        internal string lastpattern = "";
+        private string m_record = "";
         Queue<ProfilerEvent> m_events = new Queue<ProfilerEvent>(10);
-        internal TraceProperties.TraceSettings m_currentsettings;
         private readonly List<PerfColumn> m_columns = new List<PerfColumn>();
-        internal bool matchCase = false;
-        internal bool wholeWord = false;
+        private bool m_autostart = false;
         private bool m_success = false;
         private Timer m_timer;
+
+        internal int lastpos = -1;
+        internal string lastpattern = "";
+        internal TraceProperties.TraceSettings m_currentsettings;
+        internal bool matchCase = false;
+        internal bool wholeWord = false;
+
+        public const string versionString = "Express Profiler v2.2";
 
         public ExpressProfiler()
         {
             m_servername = Properties.Settings.Default.ServerName;
             m_username = Properties.Settings.Default.UserName;
             m_currentsettings = GetDefaultSettings();
-            m_timer = new Timer(timer_Elapsed, null, 0, Timeout.Infinite);
             m_success = ParseCommandLine();
             if (m_success)
             {
@@ -75,6 +76,20 @@ namespace ExpressProfiler
                 if (m_currentsettings.EventsColumns.HostName) m_columns.Add(new PerfColumn { Caption = "Host name", Column = ProfilerEventColumns.HostName });
 
                 m_columns.Add(new PerfColumn { Caption = "#", Column = -1 });
+
+                StringBuilder columns = new StringBuilder();
+                columns.Append(m_columns[0].Caption);
+                for (int i = 1; i < m_columns.Count; i++)
+                {
+                    columns.AppendFormat(" {0}", m_columns[i].Caption);
+                }
+                m_record = columns.ToString();
+
+                m_timer = new Timer(timer_Elapsed, null, 0, Timeout.Infinite);
+                if (m_autostart)
+                {
+                    StartProfiling();
+                }
             }
         }
 
@@ -216,6 +231,9 @@ namespace ExpressProfiler
                                 }
 
                                 break;
+                            case "-start":
+                                m_autostart = true;
+                                break;
                             case "-batchcompleted":
                                 m_currentsettings.EventsColumns.BatchCompleted = true;
                                 break;
@@ -267,14 +285,14 @@ namespace ExpressProfiler
             m_EventCount++;
             //string caption = ProfilerEvents.Names[evt.EventClass];
             object[] data = new object[m_columns.Count]; 
-            for (int i = 0; i < m_columns.Count - 1; i++)
+            for (int i = 0; i < m_columns.Count; i++)
             {
                 PerfColumn pc = m_columns[i];
                 data[i] =
                     pc.Column == -1 ?
                     m_EventCount.ToString("#,0") : (ProfilerEventColumns.Duration == pc.Column ? (evt.Duration / 1000).ToString(pc.Format) : evt.GetFormattedData(pc.Column, pc.Format)) ?? "";
             }
-            Logger.LogInformation(m_EventCount.ToString("#,0"), data);
+            Logger.LogInformation(m_record, data);
         }
 
         private void ProfilerThread(Object state)

@@ -17,10 +17,9 @@ namespace ExpressProfiler
             ExpressProfiler client = null;
             try
             {
-                WickesAppLogger.Initialize("ExpressProfiler");
+                WickesAppLogger.Initialize(ExpressProfiler.versionString);
                 Logger = AppLogger.CreateLogger<ExpressProfiler>();
                 client = new ExpressProfiler();
-                client.StartProfiling();
             }
             catch (Exception ex)
             {
