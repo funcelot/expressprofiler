@@ -51,6 +51,8 @@ namespace SqlServer.Logger
 
         public SqlServerLogger()
         {
+            m_currentsettings = GetDefaultSettings();
+
             m_servername = Properties.Settings.Default.ServerName;
             m_username = Properties.Settings.Default.UserName;
             m_userpassword = Properties.Settings.Default.UserPassword;
@@ -61,8 +63,6 @@ namespace SqlServer.Logger
             }
 
             SaveDefaultSettings();
-
-            m_currentsettings = GetDefaultSettings();
 
             m_columns.Add(new PerfColumn { Caption = "Event Class", Column = ProfilerEventColumns.EventClass });
             m_columns.Add(new PerfColumn { Caption = "Text Data", Column = ProfilerEventColumns.TextData });
@@ -98,15 +98,19 @@ namespace SqlServer.Logger
             try
             {
                 XmlSerializer x = new XmlSerializer(typeof(TraceProperties.TraceSettings));
-                using (StringReader sr = new StringReader(Properties.Settings.Default.TraceSettings))
+                string settings = Properties.Settings.Default.TraceSettings;
+                if (!string.IsNullOrEmpty(settings))
                 {
-                    return (TraceProperties.TraceSettings)x.Deserialize(sr);
-                    
+                    using (StringReader sr = new StringReader(Properties.Settings.Default.TraceSettings))
+                    {
+                        return (TraceProperties.TraceSettings)x.Deserialize(sr);
+                    }
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                
+                Logger.LogError(e, "Error");
+                //ex
             }
             return TraceProperties.TraceSettings.GetDefaultSettings();
         }
@@ -321,7 +325,7 @@ namespace SqlServer.Logger
             }
             catch (Exception e)
             {
-                Logger.LogError(e, "profiler thread exception");
+                Logger.LogError(e, "Error");
             }
         }
 
@@ -595,7 +599,7 @@ namespace SqlServer.Logger
             }
             catch (Exception e)
             {
-                Logger.LogError(e, "");
+                Logger.LogError(e, "Error");
             }
         }
 
