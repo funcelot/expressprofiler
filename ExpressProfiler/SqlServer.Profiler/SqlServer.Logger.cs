@@ -20,9 +20,10 @@ namespace SqlServer.Logger
 
         public class PerfColumn
         {
+            public string Id;
             public string Caption;
-            public int Column;
             public string Format;
+            public int Column;
         }
 
         private RawTraceReader m_Rdr;
@@ -65,21 +66,27 @@ namespace SqlServer.Logger
 
             SaveDefaultSettings();
 
-            m_columns.Add(new PerfColumn { Caption = "Event Class", Column = ProfilerEventColumns.EventClass });
-            m_columns.Add(new PerfColumn { Caption = "Text Data", Column = ProfilerEventColumns.TextData });
-            m_columns.Add(new PerfColumn { Caption = "Login Name", Column = ProfilerEventColumns.LoginName });
-            m_columns.Add(new PerfColumn { Caption = "CPU", Column = ProfilerEventColumns.CPU, Format = "#,0" });
-            m_columns.Add(new PerfColumn { Caption = "Reads", Column = ProfilerEventColumns.Reads, Format = "#,0" });
-            m_columns.Add(new PerfColumn { Caption = "Writes", Column = ProfilerEventColumns.Writes, Format = "#,0" });
-            m_columns.Add(new PerfColumn { Caption = "Duration, ms", Column = ProfilerEventColumns.Duration, Format = "#,0" });
-            m_columns.Add(new PerfColumn { Caption = "SPID", Column = ProfilerEventColumns.SPID });
+            m_columns.Add(new PerfColumn { Id = "E", Caption = "Event Class", Column = ProfilerEventColumns.EventClass });
+            m_columns.Add(new PerfColumn { Id = "T", Caption = "Text Data", Column = ProfilerEventColumns.TextData });
+            m_columns.Add(new PerfColumn { Id = "L", Caption = "Login Name", Column = ProfilerEventColumns.LoginName });
+            m_columns.Add(new PerfColumn { Id = "C", Caption = "CPU", Column = ProfilerEventColumns.CPU, Format = "#,0" });
+            m_columns.Add(new PerfColumn { Id = "R", Caption = "Reads", Column = ProfilerEventColumns.Reads, Format = "#,0" });
+            m_columns.Add(new PerfColumn { Id = "W", Caption = "Writes", Column = ProfilerEventColumns.Writes, Format = "#,0" });
+            m_columns.Add(new PerfColumn { Id = "D", Caption = "Duration, ms", Column = ProfilerEventColumns.Duration, Format = "#,0" });
+            m_columns.Add(new PerfColumn { Id = "S", Caption = "SPID", Column = ProfilerEventColumns.SPID });
 
-            if (m_currentsettings.EventsColumns.StartTime) m_columns.Add(new PerfColumn { Caption = "Start time", Column = ProfilerEventColumns.StartTime, Format = "yyyy-MM-dd hh:mm:ss.ffff" });
-            if (m_currentsettings.EventsColumns.EndTime) m_columns.Add(new PerfColumn { Caption = "End time", Column = ProfilerEventColumns.EndTime, Format = "yyyy-MM-dd hh:mm:ss.ffff" });
-            if (m_currentsettings.EventsColumns.DatabaseName) m_columns.Add(new PerfColumn { Caption = "DatabaseName", Column = ProfilerEventColumns.DatabaseName });
-            if (m_currentsettings.EventsColumns.ObjectName) m_columns.Add(new PerfColumn { Caption = "Object name", Column = ProfilerEventColumns.ObjectName });
-            if (m_currentsettings.EventsColumns.ApplicationName) m_columns.Add(new PerfColumn { Caption = "Application name", Column = ProfilerEventColumns.ApplicationName });
-            if (m_currentsettings.EventsColumns.HostName) m_columns.Add(new PerfColumn { Caption = "Host name", Column = ProfilerEventColumns.HostName });
+            if (m_currentsettings.EventsColumns.StartTime) 
+                m_columns.Add(new PerfColumn { Id = "ST", Caption = "Start time", Column = ProfilerEventColumns.StartTime, Format = "yyyy-MM-dd hh:mm:ss.ffff" });
+            if (m_currentsettings.EventsColumns.EndTime) 
+                m_columns.Add(new PerfColumn { Id = "ET", Caption = "End time", Column = ProfilerEventColumns.EndTime, Format = "yyyy-MM-dd hh:mm:ss.ffff" });
+            if (m_currentsettings.EventsColumns.DatabaseName) 
+                m_columns.Add(new PerfColumn { Id = "D", Caption = "DatabaseName", Column = ProfilerEventColumns.DatabaseName });
+            if (m_currentsettings.EventsColumns.ObjectName) 
+                m_columns.Add(new PerfColumn { Id = "O", Caption = "Object name", Column = ProfilerEventColumns.ObjectName });
+            if (m_currentsettings.EventsColumns.ApplicationName) 
+                m_columns.Add(new PerfColumn { Id = "A", Caption = "Application name", Column = ProfilerEventColumns.ApplicationName });
+            if (m_currentsettings.EventsColumns.HostName) 
+                m_columns.Add(new PerfColumn { Id = "H", Caption = "Host name", Column = ProfilerEventColumns.HostName });
 
             m_columns.Add(new PerfColumn { Caption = "#", Column = -1 });
 
@@ -87,7 +94,7 @@ namespace SqlServer.Logger
             columns.AppendFormat("{0}={{{0}}}", m_columns[0].Caption);
             for (int i = 1; i < m_columns.Count; i++)
             {
-                columns.AppendFormat(" {0}={{{0}}}", m_columns[i].Caption);
+                columns.AppendFormat(" {0}={{{0}}}", m_columns[i].Id, m_columns[i].Id);
             }
             m_logging = columns.ToString();
 
