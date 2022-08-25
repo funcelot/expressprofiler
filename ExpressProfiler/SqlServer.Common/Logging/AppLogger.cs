@@ -91,7 +91,7 @@ namespace SqlServer.Logging
         public static ILogger Init(ILoggerFactory loggerFactory)
         {
 #if DEBUG
-            _logWriter.Write("Initing AppLogger by {0} from:\r\n{1}", loggerFactory.GetType().FullName, Environment.StackTrace);
+            _logWriter.Write("Initing AppLogger by {0} from {1}{2}", loggerFactory.GetType().FullName, AppDomain.CurrentDomain.BaseDirectory, AppDomain.CurrentDomain.FriendlyName);
 #else
             _logWriter.Write("Initing AppLogger by {0}", loggerFactory.GetType().FullName);
 #endif
