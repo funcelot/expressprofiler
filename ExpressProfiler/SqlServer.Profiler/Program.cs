@@ -28,11 +28,5 @@ namespace SqlServer.Logger
                 return;
             }
         }
-
-        private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
-        {
-            //MessageBox.Show(((Exception)e.ExceptionObject).Message , "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        }
-
     }
 }
