@@ -194,24 +194,25 @@ namespace SqlServer.Logger
                 string[] args = Environment.GetCommandLineArgs();
                 if (args.Length == 2 && (args[1].ToLower() == "-h" || args[1].ToLower() == "--help"))
                 {
-                    Console.WriteLine("-h");
-                    Console.WriteLine("-help");
-                    Console.WriteLine("    Help");
-                    Console.WriteLine("-s");
-                    Console.WriteLine("-server");
-                    Console.WriteLine("    Server name");
-                    Console.WriteLine("-u");
-                    Console.WriteLine("-user");
-                    Console.WriteLine("    User name");
-                    Console.WriteLine("-p");
-                    Console.WriteLine("-password");
-                    Console.WriteLine("    User password");
-                    Console.WriteLine("-m");
-                    Console.WriteLine("-maxevents");
-                    Console.WriteLine("    Maximum number of events");
-                    Console.WriteLine("-d");
-                    Console.WriteLine("-duration");
-                    Console.WriteLine("    Duration");
+                    Console.WriteLine(SqlServerLogger.versionString);
+                    Console.WriteLine("\t-h");
+                    Console.WriteLine("\t-help");
+                    Console.WriteLine("\t    Help");
+                    Console.WriteLine("\t-s");
+                    Console.WriteLine("\t-server");
+                    Console.WriteLine(" \t   Server name");
+                    Console.WriteLine("\t-u");
+                    Console.WriteLine("\t-user");
+                    Console.WriteLine("\t    User name");
+                    Console.WriteLine("\t-p");
+                    Console.WriteLine("\t-password");
+                    Console.WriteLine("\t    User password");
+                    Console.WriteLine("\t-m");
+                    Console.WriteLine("\t-maxevents");
+                    Console.WriteLine("\t    Maximum number of events");
+                    Console.WriteLine("\t-d");
+                    Console.WriteLine("\t-duration");
+                    Console.WriteLine("\t    Duration");
                     return false;
                 }
                 else

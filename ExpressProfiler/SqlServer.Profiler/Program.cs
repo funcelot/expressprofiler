@@ -14,13 +14,14 @@ namespace SqlServer.Logger
             ILogger Logger;
             try
             {
-                AppLogger.Initialize(SqlServerLogger.versionString);
+                AppLogger.Initialize("SqlServer.Logger");
                 Logger = Logging.AppLogger.CreateLogger<SqlServerLogger>();
+                Logger.LogInformation("Logging started");
                 using (var client = new SqlServerLogger())
                 {
-                    Logger.LogInformation("--------------------------------------------------------------------------------");
                     client.StartProfiling();
                 }
+                Logger.LogInformation("Logging ended");
             }
             catch (Exception ex)
             {
