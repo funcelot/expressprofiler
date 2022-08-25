@@ -32,8 +32,9 @@ namespace SqlServer.Logger
         private SqlConnection m_Conn;
         private readonly SqlCommand m_Cmd = new SqlCommand();
         private Thread m_Thr;
-        private bool m_NeedStop = true;
+
         private long m_EventCount;
+
         private string m_servername = "";
         private string m_username = "";
         private string m_userpassword = "";
@@ -44,6 +45,7 @@ namespace SqlServer.Logger
 
         internal int lastpos = -1;
         internal string lastpattern = "";
+
         internal TraceProperties.TraceSettings m_currentsettings;
         internal bool matchCase = false;
         internal bool wholeWord = false;
@@ -313,7 +315,7 @@ namespace SqlServer.Logger
         {
             try
             {
-                while (!m_NeedStop && m_Rdr.TraceIsActive)
+                while (!Program.Exit && m_Rdr.TraceIsActive)
                 {
                     ProfilerEvent evt = m_Rdr.Next();
                     if (evt != null)
@@ -387,7 +389,6 @@ namespace SqlServer.Logger
                                     ProfilerEventColumns.HostName
                         );
                 }
-
                 if (m_currentsettings.EventsColumns.ExistingConnection)
                 {
                     m_Rdr.SetEvent(ProfilerEvents.Sessions.ExistingConnection,
@@ -516,7 +517,6 @@ namespace SqlServer.Logger
                         );
 
                 }
-
                 if (m_currentsettings.EventsColumns.SQLStmtStarting)
                 {
                     m_Rdr.SetEvent(ProfilerEvents.TSQL.SQLStmtStarting,
@@ -549,6 +549,7 @@ namespace SqlServer.Logger
                     SetIntFilter(m_currentsettings.Filters.Duration * 1000,
                                  m_currentsettings.Filters.DurationFilterCondition, ProfilerEventColumns.Duration);
                 }
+
                 SetIntFilter(m_currentsettings.Filters.Reads, m_currentsettings.Filters.ReadsFilterCondition, ProfilerEventColumns.Reads);
                 SetIntFilter(m_currentsettings.Filters.Writes, m_currentsettings.Filters.WritesFilterCondition, ProfilerEventColumns.Writes);
                 SetIntFilter(m_currentsettings.Filters.CPU, m_currentsettings.Filters.CpuFilterCondition, ProfilerEventColumns.CPU);
@@ -560,19 +561,16 @@ namespace SqlServer.Logger
                 SetStringFilter(m_currentsettings.Filters.TextData, m_currentsettings.Filters.TextDataFilterCondition, ProfilerEventColumns.TextData);
                 SetStringFilter(m_currentsettings.Filters.ApplicationName, m_currentsettings.Filters.ApplicationNameFilterCondition, ProfilerEventColumns.ApplicationName);
 
-
                 m_Cmd.Connection = m_Conn;
                 m_Cmd.CommandTimeout = 0;
 
                 m_Rdr.SetFilter(ProfilerEventColumns.ApplicationName, LogicalOperators.AND, ComparisonOperators.NotLike, "SqlServer Logger");
                 m_Rdr.StartTrace();
 
-                m_NeedStop = false;
-
                 m_Thr = new Thread(ProfilerThread) { IsBackground = true, Priority = ThreadPriority.Lowest };
                 m_Thr.Start();
 
-                m_timer = new Timer(timer_Elapsed, null, 0, 250);
+                m_timer = new Timer(TimerThread, null, 0, Program.SleepInterval);
 
                 m_profiling = true;
             }
@@ -606,8 +604,6 @@ namespace SqlServer.Logger
                     m_Rdr.CloseTrace(cn);
                     cn.Close();
                 }
-
-                m_NeedStop = true;
 
                 if (m_Thr.IsAlive)
                 {
@@ -653,7 +649,7 @@ namespace SqlServer.Logger
 
         }
 
-        private void timer_Elapsed(object state)
+        private void TimerThread(object state)
         {
             if (!m_success)
             {
@@ -665,7 +661,7 @@ namespace SqlServer.Logger
             }
             lock (m_locker)
             {
-                while (m_events.Count != 0)
+                while (m_events.Count != 0 && !Program.Exit)
                 {
                     NewEventArrived(m_events.Dequeue());
                 }
@@ -677,17 +673,12 @@ namespace SqlServer.Logger
             StopProfiling();
         }
 
-        internal void Process()
+        internal void Wait()
         {
             if (m_profiling) 
             {
-
+                Thread.Sleep(Program.SleepInterval);
             }
-        }
-
-        internal bool IsProfiling()
-        {
-            return m_profiling;
         }
     }
 }
