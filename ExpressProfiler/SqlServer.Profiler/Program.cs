@@ -11,15 +11,18 @@ namespace SqlServer.Logger
         [STAThread]
         static void Main()
         {
-            ILogger Logger;
+            AppLogger.Initialize("SqlServer.Logger");
+            ILogger Logger = Logging.AppLogger.CreateLogger<SqlServerLogger>();
             try
             {
-                AppLogger.Initialize("SqlServer.Logger");
-                Logger = Logging.AppLogger.CreateLogger<SqlServerLogger>();
                 Logger.LogInformation("Logging started");
                 using (var client = new SqlServerLogger())
                 {
                     client.StartProfiling();
+                    while (client.IsProfiling())
+                    {
+                        client.Process();
+                    }
                 }
                 Logger.LogInformation("Logging ended");
             }
