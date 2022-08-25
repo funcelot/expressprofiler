@@ -143,7 +143,7 @@ namespace SqlServer
         {
             var next = GetNextActionNumber();
 
-            return string.Concat(BeginChar, ExpressApp.InstanceId, NameDelimiterChar, next, DelimiterChar);
+            return string.Concat(BeginChar, App.InstanceId, NameDelimiterChar, next, DelimiterChar);
         }
 
         public static string GenerateChildActivityId(string parentActionId)
@@ -177,7 +177,7 @@ namespace SqlServer
                 builder.Append(DelimiterChar);
             }
 
-            builder.Append(ExpressApp.InstanceId).Append(NameDelimiterChar).Append(next);
+            builder.Append(App.InstanceId).Append(NameDelimiterChar).Append(next);
             builder.Append(DelimiterChar);
             return builder.ToString();
         }

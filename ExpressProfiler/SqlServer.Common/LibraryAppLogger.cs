@@ -8,7 +8,7 @@ namespace SqlServer.Logging
         {
             try
             {
-                return ExpressApp.EnsureStarted(() => new DefaultAppBuilder(appLoggerName));
+                return App.EnsureStarted(() => new DefaultAppBuilder(appLoggerName));
             }
             catch (Exception ex)
             {

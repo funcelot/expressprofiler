@@ -41,7 +41,7 @@ namespace SqlServer.Logging
             if (report)
             {
                 var avgMs = total * 1.0 / count / TicksPerMs;
-                Logger.LogDebug("Processed next {Total} log events for App '{AppId}'. Avg performance: {Avg} ms.", count, ExpressApp.InstanceId, avgMs.ToString("F3"));
+                Logger.LogDebug("Processed next {Total} log events for App '{AppId}'. Avg performance: {Avg} ms.", count, App.InstanceId, avgMs.ToString("F3"));
             }
         }
     }

@@ -441,12 +441,12 @@ namespace SqlServer.Logging
             var process = Process.GetCurrentProcess();
 
             logger.LogInformation("Starting app '{AppName}' for process '{ProcessName}', processId: '{ProcessId}' on machine '{MachineName}'.",
-                appName, process.ProcessName, process.Id, ExpressApp.MachineName);
+                appName, process.ProcessName, process.Id, App.MachineName);
 
             logger.LogInformation("Process CommandLine: '{CommandLine}'.", Environment.CommandLine);
             logger.LogInformation("Current user: '{UserName}', Domain: '{UserDomainName}'.", Environment.UserName, Environment.UserDomainName);
             logger.LogInformation("CurrentDirectory: '{CurrentDirectory}'.", Environment.CurrentDirectory);
-            logger.LogInformation("ExpressApp InstanceId: '{InstanceId}', IsTestEnv: '{IsTestEnv}'.", ExpressApp.InstanceId, ExpressApp.IsTestEnv);
+            logger.LogInformation("ExpressApp InstanceId: '{InstanceId}', IsTestEnv: '{IsTestEnv}'.", App.InstanceId, App.IsTestEnv);
 
             var domain = AppDomain.CurrentDomain;
             logger.LogInformation("Domain BaseDirectory: '{BaseDirectory}', RelativeSearchPath: '{RelativeSearchPath}'", domain.BaseDirectory, domain.RelativeSearchPath);

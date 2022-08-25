@@ -119,8 +119,8 @@
     <Compile Include="System\Action.cs" />
     <Compile Include="System\Func.cs" />
     <Compile Include="TestErrorValidator.cs" />
-    <Compile Include="ExpressApp.cs" />
-    <Compile Include="ExpressAppLogger.cs" />
+    <Compile Include="App.cs" />
+    <Compile Include="AppLogger.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\src\.editorconfig">

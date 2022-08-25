@@ -6,7 +6,7 @@ namespace SqlServer
     {
         public static void Check(string text, string errorCode)
         {
-            if (!ExpressApp.IsTestEnv || text == null)
+            if (!App.IsTestEnv || text == null)
             {
                 return;
             }

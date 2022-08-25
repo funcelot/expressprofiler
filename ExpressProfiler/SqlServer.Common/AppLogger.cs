@@ -8,16 +8,7 @@ namespace SqlServer
     {
         public static ILogger Initialize(string appLoggerName = "ExpressAppLogger")
         {
-            try
-            {
-                return ExpressApp.EnsureStarted(() => new DefaultAppBuilder(appLoggerName));
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex);
-                Environment.ExitCode = 1;
-            }
-            return null;
+            return App.EnsureStarted(() => new DefaultAppBuilder(appLoggerName));
         }
 
         public static ILogger InitializeLibrary(string appLoggerName = "ExpressAppLogger")
@@ -29,7 +20,7 @@ namespace SqlServer
         {
             try
             {
-                return ExpressApp.EnsureStarted(() => (T)Activator.CreateInstance(typeof(T), appLoggerName));
+                return App.EnsureStarted(() => (T)Activator.CreateInstance(typeof(T), appLoggerName));
             }
             catch (Exception ex)
             {

@@ -8,7 +8,7 @@ namespace SqlServer
 {
     using System.Collections.Generic;
 
-    public static class ExpressApp
+    public static class App
     {
         public static readonly string InstanceId = StringHelper.GenerateStringShort();
         public static readonly string MachineName = Environment.MachineName;

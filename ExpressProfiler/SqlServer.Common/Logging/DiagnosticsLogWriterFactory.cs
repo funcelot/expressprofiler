@@ -12,10 +12,10 @@ namespace SqlServer.Logging
         {
             try
             {
-                var logFolder = ExpressApp.GetEnvVariableSafe("BO_InternalLoggerFolder");
+                var logFolder = App.GetEnvVariableSafe("BO_InternalLoggerFolder");
                 if (logFolder != null)
                 {
-                    var path = string.Format("BO_Internal_{0:yyyyMMdd}_{1}.log", DateTime.Now, ExpressApp.ProcessId);
+                    var path = string.Format("BO_Internal_{0:yyyyMMdd}_{1}.log", DateTime.Now, App.ProcessId);
                     path = Path.Combine(logFolder, path);
                     return new DiagnosticsFileLogWriter(name, path);
                 }
@@ -71,7 +71,7 @@ namespace SqlServer.Logging
                 {
                     var process = Process.GetCurrentProcess();
 
-                    Log("Started AppLogger for process '{0}', processId: '{1}' on machine '{2}'.", process.ProcessName, process.Id, ExpressApp.MachineName);
+                    Log("Started AppLogger for process '{0}', processId: '{1}' on machine '{2}'.", process.ProcessName, process.Id, App.MachineName);
                     Log("CommandLine: '{0}'.", Environment.CommandLine);
                     Log("Current user: '{0}', Domain: '{1}'.", Environment.UserName, Environment.UserDomainName);
                     Log("CurrentDirectory: '{0}'.", Environment.CurrentDirectory);
