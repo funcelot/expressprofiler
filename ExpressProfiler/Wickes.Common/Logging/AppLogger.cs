@@ -81,8 +81,8 @@ namespace Wickes.Logging
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
-                return null;
+                Console.WriteLine(ExceptionHelper.CreateFullUserMessage(ex));
+                throw;
             }
         }
 

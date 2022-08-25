@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Configuration;
+using Wickes.Helpers;
 
 namespace Wickes
 {
@@ -22,11 +23,15 @@ namespace Wickes
                 }
                 return value;
             }
-            catch (Exception ex)
+            catch (ConfigurationErrorsException ex) 
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine(ExceptionHelper.CreateFullUserMessage(ex));
+                throw;
             }
-            return null;
+            catch
+            {
+                return null;
+            }
         }
 
         public static string GetSettings(string name)
