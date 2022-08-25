@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 
-namespace Express.Logging
+namespace SqlServer.Logging
 {
     internal static class LogPerformanceWatcher
     {

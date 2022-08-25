@@ -2,7 +2,7 @@
 using System.Runtime.CompilerServices;
 using NLog.LayoutRenderers;
 
-namespace Express.Logging
+namespace SqlServer.Logging
 {
     internal static class NLogGlobalSettings
     {

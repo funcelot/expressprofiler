@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Configuration;
 
-namespace Express.Logging
+namespace SqlServer.Logging
 {
     public class NLogVariablesResolver : INLogVariablesResolver
     {

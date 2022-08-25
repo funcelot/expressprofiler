@@ -1,4 +1,4 @@
-﻿namespace Express.DependencyInjection
+﻿namespace SqlServer.DependencyInjection
 {
     public interface IServiceScopeFactory
     {

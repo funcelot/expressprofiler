@@ -1,7 +1,7 @@
 using System;
 using System.Security;
 
-namespace Express
+namespace SqlServer
 {
     public static class ExpressAppEnvironment
     {

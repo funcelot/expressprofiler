@@ -1,7 +1,7 @@
 ﻿using System.IO;
-using Express.Common;
+using SqlServer.Common;
 
-namespace Express.Logging
+namespace SqlServer.Logging
 {
     public class DefaultNLogVariablesResolverByAppSettings : NLogVariablesResolver
     {

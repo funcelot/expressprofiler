@@ -3,9 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
-using Express.Helpers;
+using SqlServer.Helpers;
 
-namespace Express.Logging
+namespace SqlServer.Logging
 {
     internal class LogValuesFormatter
     {

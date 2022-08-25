@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Express.Helpers
+namespace SqlServer.Helpers
 {
     public static class LoggingHelper
     {

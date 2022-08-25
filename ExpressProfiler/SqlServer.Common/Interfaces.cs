@@ -1,7 +1,7 @@
 using System;
 using System.Runtime.InteropServices;
 
-namespace Express
+namespace SqlServer
 {
     [ComVisible(true)]
     [Guid("EA6DDEC7-8FFD-4F16-AB8F-5A33337B8242")]

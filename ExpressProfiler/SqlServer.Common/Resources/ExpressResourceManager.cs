@@ -1,9 +1,9 @@
 ﻿using System;
 using System.IO;
 using System.Reflection;
-using Express.Helpers;
+using SqlServer.Helpers;
 
-namespace Express.Resources
+namespace SqlServer.Resources
 {
     public class ExpressResourceManager
     {

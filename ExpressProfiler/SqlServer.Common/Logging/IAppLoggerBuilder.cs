@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Express.Logging
+namespace SqlServer.Logging
 {
     public interface IAppLoggerBuilder
     {

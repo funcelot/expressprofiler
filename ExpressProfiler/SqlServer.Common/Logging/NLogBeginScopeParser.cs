@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using NLog;
-using Express.Helpers;
+using SqlServer.Helpers;
 
-namespace Express.Logging
+namespace SqlServer.Logging
 {
     internal class NLogBeginScopeParser
     {

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Express
+namespace SqlServer
 {
     public static class Pair
     {

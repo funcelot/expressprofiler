@@ -1,7 +1,7 @@
 ﻿using System;
 using NLog;
 
-namespace Express.Logging
+namespace SqlServer.Logging
 {
     internal class NLogLogger : ILogger
     {

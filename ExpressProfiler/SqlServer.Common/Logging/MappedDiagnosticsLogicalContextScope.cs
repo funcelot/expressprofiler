@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using NLog;
 
-namespace Express.Logging
+namespace SqlServer.Logging
 {
     internal class MappedDiagnosticsLogicalContextScope : IDisposable
     {

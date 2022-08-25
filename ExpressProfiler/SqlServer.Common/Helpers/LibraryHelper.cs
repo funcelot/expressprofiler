@@ -2,7 +2,7 @@
 using System.Reflection;
 using System.Threading;
 
-namespace Express.Helpers
+namespace SqlServer.Helpers
 {
     public static class LibraryHelper
     {

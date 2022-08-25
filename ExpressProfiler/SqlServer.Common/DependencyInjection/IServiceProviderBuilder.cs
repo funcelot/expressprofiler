@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Express.DependencyInjection
+namespace SqlServer.DependencyInjection
 {
     public interface IServiceProviderBuilder
     {

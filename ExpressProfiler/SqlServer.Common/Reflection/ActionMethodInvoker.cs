@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Express.Logging;
+using SqlServer.Logging;
 
-namespace Express.Reflection
+namespace SqlServer.Reflection
 {
     public class ActionMethodInvoker
     {

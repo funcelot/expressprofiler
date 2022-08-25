@@ -1,6 +1,5 @@
 ﻿using System;
-using Express;
-using Express.Logging;
+using SqlServer.Logging;
 
 namespace SqlServer.Logger
 {
@@ -15,8 +14,8 @@ namespace SqlServer.Logger
             ILogger Logger;
             try
             {
-                ExpressAppLogger.Initialize(SqlServerLogger.versionString);
-                Logger = AppLogger.CreateLogger<SqlServerLogger>();
+                AppLogger.Initialize(SqlServerLogger.versionString);
+                Logger = Logging.AppLogger.CreateLogger<SqlServerLogger>();
                 using (var client = new SqlServerLogger())
                 {
                     client.StartProfiling();

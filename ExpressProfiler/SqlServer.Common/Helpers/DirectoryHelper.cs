@@ -1,8 +1,8 @@
 ﻿using System;
 using System.IO;
-using Express.Resources;
+using SqlServer.Resources;
 
-namespace Express.Helpers
+namespace SqlServer.Helpers
 {
     public static class DirectoryHelper
     {

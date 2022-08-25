@@ -9,13 +9,13 @@ using System.IO;
 using System.Text;
 using System.Threading;
 using System.Xml.Serialization;
-using Express.Logging;
+using SqlServer.Logging;
 
 namespace SqlServer.Logger
 {
     public class SqlServerLogger: IDisposable
     {
-        private static readonly ILogger Logger = AppLogger.CreateLogger<SqlServerLogger>();
+        private static readonly ILogger Logger = Logging.AppLogger.CreateLogger<SqlServerLogger>();
 
 
         public class PerfColumn

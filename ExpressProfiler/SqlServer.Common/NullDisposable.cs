@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Express
+namespace SqlServer
 {
     public class NullDisposable : IDisposable
     {

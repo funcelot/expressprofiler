@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using Express.Configuration;
-using Express.Helpers;
+using SqlServer.Configuration;
+using SqlServer.Helpers;
 
-namespace Express.Logging
+namespace SqlServer.Logging
 {
     public sealed class AppLogger
     {

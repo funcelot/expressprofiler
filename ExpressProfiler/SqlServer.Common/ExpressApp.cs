@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Diagnostics;
-using Express.Configuration;
-using Express.Helpers;
-using Express.Logging;
+using SqlServer.Configuration;
+using SqlServer.Helpers;
+using SqlServer.Logging;
 
-namespace Express
+namespace SqlServer
 {
     using System.Collections.Generic;
 

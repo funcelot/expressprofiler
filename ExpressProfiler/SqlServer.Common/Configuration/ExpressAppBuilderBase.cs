@@ -1,6 +1,6 @@
-﻿using Express.Logging;
+﻿using SqlServer.Logging;
 
-namespace Express.Configuration
+namespace SqlServer.Configuration
 {
     public abstract class ExpressAppBuilderBase : IExpressApp
     {
@@ -37,7 +37,7 @@ namespace Express.Configuration
         {
             Logger.Write("Starting app");
             var logBuilder = CreateLoggerBuilder();
-            ILogger logger = AppLogger.EnsureInited(logBuilder);
+            ILogger logger = Logging.AppLogger.EnsureInited(logBuilder);
 
             LogAppStartedSafe(logger);
 

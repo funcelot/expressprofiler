@@ -1,6 +1,6 @@
-﻿using Express.Logging;
+﻿using SqlServer.Logging;
 
-namespace Express.Configuration
+namespace SqlServer.Configuration
 {
     public interface IExpressApp
     {

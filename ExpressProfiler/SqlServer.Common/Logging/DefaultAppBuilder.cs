@@ -1,6 +1,6 @@
-﻿using Express.Configuration;
+﻿using SqlServer.Configuration;
 
-namespace Express.Logging
+namespace SqlServer.Logging
 {
     public class DefaultAppBuilder : ExpressAppBuilderBase
     {

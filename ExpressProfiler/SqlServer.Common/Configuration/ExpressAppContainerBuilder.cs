@@ -1,8 +1,8 @@
 ﻿using System;
-using Express.DependencyInjection;
-using Express.Logging;
+using SqlServer.DependencyInjection;
+using SqlServer.Logging;
 
-namespace Express.Configuration
+namespace SqlServer.Configuration
 {
     public class ExpressAppContainerBuilder : ExpressAppBuilderBase
     {

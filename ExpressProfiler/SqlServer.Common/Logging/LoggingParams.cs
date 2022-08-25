@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using Express.Helpers;
+using SqlServer.Helpers;
 
-namespace Express.Logging
+namespace SqlServer.Logging
 {
     public class LoggingParams : List<KeyValuePair<string, object>>
     {

@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Express.Common")]
+[assembly: AssemblyTitle("SqlServer.Common")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Express Group PLC")]
-[assembly: AssemblyProduct("Express.Common")]
+[assembly: AssemblyProduct("SqlServer.Common")]
 [assembly: AssemblyCopyright("")]
 [assembly: AssemblyTrademark("Express Group PLC")]
 [assembly: AssemblyCulture("")]
@@ -35,4 +35,4 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("3.83.0.1")]
 
-[assembly: InternalsVisibleTo("Express.Common.Tests, publicKey=00240000048000009400000006020000002400005253413100040000010001003f4cbff41a165c9d6cb216ad505a05b2f0d07ea65599f03a8258b9a19af66f8a203ab99d5c0d0b70a87aa640c3083d5e01a739b5b21b4a9e6f665d641056801605e94680cd45cd2f70785e15d043f9fd8af036b58897125de587bc610d2fa293e403ad3394f0060b1ff188a43f6d191445612049ab032cafadc6da3854e0a4a4")]
+[assembly: InternalsVisibleTo("SqlServer.Common.Tests, publicKey=00240000048000009400000006020000002400005253413100040000010001003f4cbff41a165c9d6cb216ad505a05b2f0d07ea65599f03a8258b9a19af66f8a203ab99d5c0d0b70a87aa640c3083d5e01a739b5b21b4a9e6f665d641056801605e94680cd45cd2f70785e15d043f9fd8af036b58897125de587bc610d2fa293e403ad3394f0060b1ff188a43f6d191445612049ab032cafadc6da3854e0a4a4")]

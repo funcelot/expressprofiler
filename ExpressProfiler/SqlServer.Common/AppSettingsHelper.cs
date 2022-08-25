@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Configuration;
-using Express.Helpers;
+using SqlServer.Helpers;
 
-namespace Express
+namespace SqlServer
 {
     public static class AppSettingsHelper
     {

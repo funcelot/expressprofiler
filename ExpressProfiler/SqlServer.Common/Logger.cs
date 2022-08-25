@@ -1,8 +1,8 @@
 ﻿using System;
-using Express.Logging;
-using Express.Helpers;
+using SqlServer.Logging;
+using SqlServer.Helpers;
 
-namespace Express.Common
+namespace SqlServer.Common
 {
     public static class Logger
     {

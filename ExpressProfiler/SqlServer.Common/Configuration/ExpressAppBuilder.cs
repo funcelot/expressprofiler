@@ -1,4 +1,4 @@
-﻿namespace Express.Configuration
+﻿namespace SqlServer.Configuration
 {
     public class ExpressAppBuilder : ExpressAppBuilderBase
     {

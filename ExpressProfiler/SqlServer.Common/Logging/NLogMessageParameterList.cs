@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using NLog.MessageTemplates;
 
-namespace Express.Logging
+namespace SqlServer.Logging
 {
     internal class NLogMessageParameterList : IList<MessageTemplateParameter>
     {

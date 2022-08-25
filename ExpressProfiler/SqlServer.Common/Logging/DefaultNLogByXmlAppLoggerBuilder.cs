@@ -1,6 +1,6 @@
-﻿using Express.Helpers;
+﻿using SqlServer.Helpers;
 
-namespace Express.Logging
+namespace SqlServer.Logging
 {
     public class DefaultNLogByXmlAppLoggerBuilder : NLogByXmlAppLoggerBuilder
     {

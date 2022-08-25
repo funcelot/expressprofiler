@@ -1,10 +1,10 @@
 ﻿using System;
-using Express.Configuration;
-using Express.Logging;
+using SqlServer.Configuration;
+using SqlServer.Logging;
 
-namespace Express
+namespace SqlServer
 {
-    public class ExpressAppLogger
+    public class AppLogger
     {
         public static ILogger Initialize(string appLoggerName = "ExpressAppLogger")
         {

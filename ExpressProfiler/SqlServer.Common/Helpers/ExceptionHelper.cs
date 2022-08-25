@@ -2,7 +2,7 @@
 using System.Reflection;
 using System.Text;
 
-namespace Express.Helpers
+namespace SqlServer.Helpers
 {
     public static class ExceptionHelper
     {

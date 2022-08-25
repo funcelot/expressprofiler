@@ -1,4 +1,4 @@
-﻿namespace Express.Logging
+﻿namespace SqlServer.Logging
 {
     /// <summary>
     /// Options for logging to NLog with 

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Express.Helpers
+namespace SqlServer.Helpers
 {
     public static class ArrayHelper
     {

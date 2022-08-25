@@ -2,9 +2,9 @@
 using System.Diagnostics;
 using System.IO;
 using System.Text;
-using Express.Helpers;
+using SqlServer.Helpers;
 
-namespace Express.Logging
+namespace SqlServer.Logging
 {
     public class DiagnosticsLogWriterFactory : ILogWriterFactory
     {

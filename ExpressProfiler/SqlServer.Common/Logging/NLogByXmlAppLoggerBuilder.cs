@@ -3,9 +3,9 @@ using NLog.Config;
 using System;
 using System.IO;
 using System.Xml;
-using Express.Resources;
+using SqlServer.Resources;
 
-namespace Express.Logging
+namespace SqlServer.Logging
 {
     public class NLogByXmlAppLoggerBuilder : NLogAppLoggerBuilder
     {

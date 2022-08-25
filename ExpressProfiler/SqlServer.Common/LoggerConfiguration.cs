@@ -1,4 +1,4 @@
-﻿namespace Express.Common
+﻿namespace SqlServer.Common
 {
     public class LoggerConfiguration
     {

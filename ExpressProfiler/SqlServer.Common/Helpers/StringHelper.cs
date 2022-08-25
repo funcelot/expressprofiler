@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Express.Helpers
+namespace SqlServer.Helpers
 {
     public static class StringHelper
     {

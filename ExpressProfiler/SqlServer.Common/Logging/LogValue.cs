@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Express.Logging
+namespace SqlServer.Logging
 {
     public static class LogValue
     {

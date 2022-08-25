@@ -1,8 +1,8 @@
 ﻿using NLog;
 using System.Collections.Generic;
-using Express.Helpers;
+using SqlServer.Helpers;
 
-namespace Express.Logging
+namespace SqlServer.Logging
 {
     public class NLogLoggerFactory : ILoggerFactory
     {

@@ -1,4 +1,4 @@
-﻿namespace Express.Logging
+﻿namespace SqlServer.Logging
 {
     public interface ILoggerFactory
     {

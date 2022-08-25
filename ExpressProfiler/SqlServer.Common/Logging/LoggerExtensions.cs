@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
 
-namespace Express.Logging
+namespace SqlServer.Logging
 {
     public static class LoggerExtensions
     {
