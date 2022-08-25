@@ -4,11 +4,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("SqlServer Logger")]
+[assembly: AssemblyTitle("SqlServer.Logger")]
 [assembly: AssemblyDescription("Logger for SqlServer")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("SqlServer Logger")]
+[assembly: AssemblyProduct("SqlServer.Logger")]
 [assembly: AssemblyCopyright("Copyright © Oleksii Kovalov 2009-2016, © Artur Mustafin 2022")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

@@ -320,6 +320,7 @@ namespace SqlServer.Logger
         {
             try
             {
+                m_Rdr.StartTrace();
                 while (!m_NeedStop && m_Rdr.TraceIsActive)
                 {
                     ProfilerEvent evt = m_Rdr.Next();
@@ -331,6 +332,7 @@ namespace SqlServer.Logger
                         }
                     }
                 }
+                m_Rdr.Close();
             }
             catch (Exception e)
             {
@@ -611,7 +613,9 @@ namespace SqlServer.Logger
                         m_Rdr.CloseTrace(cn);
                         cn.Close();
                     }
+                    
                     m_NeedStop = true;
+
                     if (m_Thr.IsAlive)
                     {
                         m_Thr.Abort();
@@ -659,14 +663,8 @@ namespace SqlServer.Logger
 
         private void StartProfilerThread()
         {
-            if (m_Rdr != null)
-            {
-                m_Rdr.Close();
-                m_Rdr = null;
-            }
-            m_Rdr.StartTrace();
-            m_Thr = new Thread(ProfilerThread) { IsBackground = true, Priority = ThreadPriority.Lowest };
             m_NeedStop = false;
+            m_Thr = new Thread(ProfilerThread) { IsBackground = true, Priority = ThreadPriority.Lowest };
             m_Thr.Start();
         }
 

@@ -1187,6 +1187,7 @@ order by trace_column_id
                 return m_LastRead;
             }
         }
+
         public void Close()
         {
             if(m_Reader!=null){m_Reader.Close();}
