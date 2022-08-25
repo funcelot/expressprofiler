@@ -185,7 +185,7 @@ namespace SqlServer.Logger
             try
             {
                 string[] args = Environment.GetCommandLineArgs();
-                if (args.Length == 1 || args[2].ToLower() == "-h" || args[2].ToLower() == "--help")
+                if (args.Length == 2 && (args[1].ToLower() == "-h" || args[1].ToLower() == "--help"))
                 {
                     Console.WriteLine("-h");
                     Console.WriteLine("-help");
