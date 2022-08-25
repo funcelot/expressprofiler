@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Configuration;
 
-namespace Wickes.Logging
+namespace Express.Logging
 {
     public class NLogVariablesResolver : INLogVariablesResolver
     {

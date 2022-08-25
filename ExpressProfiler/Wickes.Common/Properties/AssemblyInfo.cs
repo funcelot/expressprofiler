@@ -5,13 +5,13 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Wickes.Common")]
+[assembly: AssemblyTitle("Express.Common")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Wickes Group PLC")]
-[assembly: AssemblyProduct("Wickes.Common")]
+[assembly: AssemblyCompany("Express Group PLC")]
+[assembly: AssemblyProduct("Express.Common")]
 [assembly: AssemblyCopyright("")]
-[assembly: AssemblyTrademark("Wickes Group PLC")]
+[assembly: AssemblyTrademark("Express Group PLC")]
 [assembly: AssemblyCulture("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible
@@ -35,4 +35,4 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("3.83.0.1")]
 
-[assembly: InternalsVisibleTo("Wickes.Common.Tests, publicKey=00240000048000009400000006020000002400005253413100040000010001003f4cbff41a165c9d6cb216ad505a05b2f0d07ea65599f03a8258b9a19af66f8a203ab99d5c0d0b70a87aa640c3083d5e01a739b5b21b4a9e6f665d641056801605e94680cd45cd2f70785e15d043f9fd8af036b58897125de587bc610d2fa293e403ad3394f0060b1ff188a43f6d191445612049ab032cafadc6da3854e0a4a4")]
+[assembly: InternalsVisibleTo("Express.Common.Tests, publicKey=00240000048000009400000006020000002400005253413100040000010001003f4cbff41a165c9d6cb216ad505a05b2f0d07ea65599f03a8258b9a19af66f8a203ab99d5c0d0b70a87aa640c3083d5e01a739b5b21b4a9e6f665d641056801605e94680cd45cd2f70785e15d043f9fd8af036b58897125de587bc610d2fa293e403ad3394f0060b1ff188a43f6d191445612049ab032cafadc6da3854e0a4a4")]

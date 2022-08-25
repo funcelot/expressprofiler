@@ -84,9 +84,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <None Include="app.config">
-      <SubType>Designer</SubType>
-    </None>
+    <None Include="App.config" />
     <None Include="nlog.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -124,9 +122,9 @@
     <None Include="Resources\filter.ico" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Wickes.Common\Wickes.Common.csproj">
+    <ProjectReference Include="..\Wickes.Common\ExpressCommon.csproj">
       <Project>{6b15233c-4392-44f8-beda-286db1a59e3e}</Project>
-      <Name>Wickes.Common</Name>
+      <Name>ExpressCommon</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

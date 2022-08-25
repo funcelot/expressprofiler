@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Wickes.Logging
+namespace Express.Logging
 {
     public class LibraryAppLogger
     {
@@ -8,7 +8,7 @@ namespace Wickes.Logging
         {
             try
             {
-                return WickesApp.EnsureStarted(() => new DefaultAppBuilder(appLoggerName));
+                return ExpressApp.EnsureStarted(() => new DefaultAppBuilder(appLoggerName));
             }
             catch (Exception ex)
             {

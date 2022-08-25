@@ -1,8 +1,8 @@
 ﻿using System;
 using System.IO;
-using Wickes.Resources;
+using Express.Resources;
 
-namespace Wickes.Helpers
+namespace Express.Helpers
 {
     public static class DirectoryHelper
     {
@@ -43,7 +43,7 @@ namespace Wickes.Helpers
             }
             try
             {
-                return WickesResourceManager.ReadCommon(fileName);
+                return ExpressResourceManager.ReadCommon(fileName);
             }
             catch (Exception ex)
             {

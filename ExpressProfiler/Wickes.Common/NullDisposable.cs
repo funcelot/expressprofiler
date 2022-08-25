@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Wickes
+namespace Express
 {
     public class NullDisposable : IDisposable
     {

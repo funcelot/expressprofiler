@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Wickes.DependencyInjection
+namespace Express.DependencyInjection
 {
-    public class WickesServiceProvider : IServiceProvider
+    public class ExpressServiceProvider : IServiceProvider
     {
         private readonly Dictionary<Type, Func<object>> _registrations;
 
-        public WickesServiceProvider(Dictionary<Type, Func<object>> registrations)
+        public ExpressServiceProvider(Dictionary<Type, Func<object>> registrations)
         {
             _registrations = registrations;
         }

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Wickes.Logging
+namespace Express.Logging
 {
     public static class LogValue
     {

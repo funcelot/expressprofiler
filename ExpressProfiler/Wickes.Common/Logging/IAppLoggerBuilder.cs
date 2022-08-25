@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Wickes.Logging
+namespace Express.Logging
 {
     public interface IAppLoggerBuilder
     {

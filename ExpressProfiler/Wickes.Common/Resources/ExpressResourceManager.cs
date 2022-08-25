@@ -1,16 +1,16 @@
 ﻿using System;
 using System.IO;
 using System.Reflection;
-using Wickes.Helpers;
+using Express.Helpers;
 
-namespace Wickes.Resources
+namespace Express.Resources
 {
-    public class WickesResourceManager
+    public class ExpressResourceManager
     {
         private readonly Assembly _assembly;
         private readonly string _prefix;
 
-        public WickesResourceManager(Assembly assembly, string prefix = null)
+        public ExpressResourceManager(Assembly assembly, string prefix = null)
         {
             _assembly = assembly;
             _prefix = prefix;
@@ -62,22 +62,22 @@ namespace Wickes.Resources
             }
         }
 
-        public static WickesResourceManager Create<T>(string prefix = null)
+        public static ExpressResourceManager Create<T>(string prefix = null)
         {
             var type = typeof(T);
-            return new WickesResourceManager(type.Assembly, prefix ?? type.Namespace);
+            return new ExpressResourceManager(type.Assembly, prefix ?? type.Namespace);
         }
 
-        public static WickesResourceManager CreateDefault<T>()
+        public static ExpressResourceManager CreateDefault<T>()
         {
             var type = typeof(T);
-            return new WickesResourceManager(type.Assembly, type.Namespace + ".Resources");
+            return new ExpressResourceManager(type.Assembly, type.Namespace + ".Resources");
         }
 
 
         public static string ReadCommon(string key)
         {
-            var manager = Create<WickesResourceManager>();
+            var manager = Create<ExpressResourceManager>();
 
             return manager.Read(key);
         }

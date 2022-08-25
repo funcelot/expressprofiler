@@ -1,7 +1,7 @@
 using System;
 using System.Runtime.InteropServices;
 
-namespace Wickes
+namespace Express
 {
     [ComVisible(true)]
     [Guid("EA6DDEC7-8FFD-4F16-AB8F-5A33337B8242")]
@@ -19,15 +19,15 @@ namespace Wickes
     {
         public bool IsDevEnvironment()
         {
-            return WickesAppEnvironment.IsDevEnvironment;
+            return ExpressAppEnvironment.IsDevEnvironment;
         }
         public bool IsTestEnvironment()
         {
-            return WickesAppEnvironment.IsTestEnvironment;
+            return ExpressAppEnvironment.IsTestEnvironment;
         }
         public bool IsProdEnvironment()
         {
-            return WickesAppEnvironment.IsProdEnvironment;
+            return ExpressAppEnvironment.IsProdEnvironment;
         }
     }
 }

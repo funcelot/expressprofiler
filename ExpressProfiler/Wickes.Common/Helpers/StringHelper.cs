@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Wickes.Helpers
+namespace Express.Helpers
 {
     public static class StringHelper
     {

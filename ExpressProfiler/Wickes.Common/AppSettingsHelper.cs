@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Configuration;
-using Wickes.Helpers;
+using Express.Helpers;
 
-namespace Wickes
+namespace Express
 {
     public static class AppSettingsHelper
     {

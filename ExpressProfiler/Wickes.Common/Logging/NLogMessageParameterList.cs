@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using NLog.MessageTemplates;
 
-namespace Wickes.Logging
+namespace Express.Logging
 {
     internal class NLogMessageParameterList : IList<MessageTemplateParameter>
     {

@@ -1,7 +1,7 @@
 ﻿using NLog;
 using System;
 
-namespace Wickes.Logging
+namespace Express.Logging
 {
     public class NLogAppLoggerBuilder : IAppLoggerBuilder
     {

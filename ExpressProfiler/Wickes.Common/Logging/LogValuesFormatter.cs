@@ -3,9 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
-using Wickes.Helpers;
+using Express.Helpers;
 
-namespace Wickes.Logging
+namespace Express.Logging
 {
     internal class LogValuesFormatter
     {

@@ -2,7 +2,7 @@
 using System.Reflection;
 using System.Threading;
 
-namespace Wickes.Helpers
+namespace Express.Helpers
 {
     public static class LibraryHelper
     {

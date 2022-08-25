@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Diagnostics;
-using Wickes.Configuration;
-using Wickes.Helpers;
-using Wickes.Logging;
+using Express.Configuration;
+using Express.Helpers;
+using Express.Logging;
 
-namespace Wickes
+namespace Express
 {
     using System.Collections.Generic;
 
-    public static class WickesApp
+    public static class ExpressApp
     {
         public static readonly string InstanceId = StringHelper.GenerateStringShort();
         public static readonly string MachineName = Environment.MachineName;
@@ -52,7 +52,7 @@ namespace Wickes
 
         public static IServiceProvider ServiceProvider { get; private set; }
 
-        public static ILogger EnsureStarted(Func<IWickesApp> createApp)
+        public static ILogger EnsureStarted(Func<IExpressApp> createApp)
         {
             lock (_locker)
             {
@@ -73,14 +73,14 @@ namespace Wickes
             }
         }
 
-        public static ILogger EnsureStarted(IWickesApp builder)
+        public static ILogger EnsureStarted(IExpressApp builder)
         {
             return EnsureStarted(() => builder);
         }
 
         public static ILogger EnsureStarted(string appName)
         {
-            return EnsureStarted(() => new WickesAppBuilder(appName));
+            return EnsureStarted(() => new ExpressAppBuilder(appName));
         }
     }
 }

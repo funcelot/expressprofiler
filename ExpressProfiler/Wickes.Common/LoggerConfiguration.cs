@@ -1,4 +1,4 @@
-﻿namespace Wickes.Common
+﻿namespace Express.Common
 {
     public class LoggerConfiguration
     {

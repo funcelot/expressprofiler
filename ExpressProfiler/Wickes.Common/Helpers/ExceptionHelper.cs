@@ -2,7 +2,7 @@
 using System.Reflection;
 using System.Text;
 
-namespace Wickes.Helpers
+namespace Express.Helpers
 {
     public static class ExceptionHelper
     {

@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 
-namespace Wickes.Logging
+namespace Express.Logging
 {
     internal static class LogPerformanceWatcher
     {
@@ -41,7 +41,7 @@ namespace Wickes.Logging
             if (report)
             {
                 var avgMs = total * 1.0 / count / TicksPerMs;
-                Logger.LogDebug("Processed next {Total} log events for App '{AppId}'. Avg performance: {Avg} ms.", count, WickesApp.InstanceId, avgMs.ToString("F3"));
+                Logger.LogDebug("Processed next {Total} log events for App '{AppId}'. Avg performance: {Avg} ms.", count, ExpressApp.InstanceId, avgMs.ToString("F3"));
             }
         }
     }

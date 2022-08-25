@@ -1,9 +1,9 @@
 using System;
 using System.Security;
 
-namespace Wickes
+namespace Express
 {
-    public static class WickesAppEnvironment
+    public static class ExpressAppEnvironment
     {
         public static string GetEnvironmentVariable(string variable)
         {

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using Wickes.Configuration;
-using Wickes.Helpers;
+using Express.Configuration;
+using Express.Helpers;
 
-namespace Wickes.Logging
+namespace Express.Logging
 {
     public sealed class AppLogger
     {
@@ -119,7 +119,7 @@ namespace Wickes.Logging
             return CreateLogger(typeof(T));
         }
 
-        public static ILogger CreateLogger<T>(string appLoggerName) where T : IWickesApp
+        public static ILogger CreateLogger<T>(string appLoggerName) where T : IExpressApp
         {
             try
             {

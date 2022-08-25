@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Wickes.DependencyInjection
+namespace Express.DependencyInjection
 {
     public class ServiceProviderBuilder : IServiceProviderBuilder
     {
@@ -14,7 +14,7 @@ namespace Wickes.DependencyInjection
 
         public IServiceProvider Build()
         {
-            return new WickesServiceProvider(_registrations);
+            return new ExpressServiceProvider(_registrations);
         }
     }
 }

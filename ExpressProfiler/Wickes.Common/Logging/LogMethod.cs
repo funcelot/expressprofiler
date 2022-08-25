@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace Wickes.Logging
+namespace Express.Logging
 {
     public class LogMethod
     {

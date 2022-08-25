@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Wickes.Helpers
+namespace Express.Helpers
 {
     public static class LoggingHelper
     {

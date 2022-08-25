@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Wickes
+namespace Express
 {
     using Helpers;
 

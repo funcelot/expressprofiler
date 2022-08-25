@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 
-namespace Wickes
+namespace Express
 {
     using Helpers;
 
@@ -13,7 +13,7 @@ namespace Wickes
     /// Represent single logic action.
     /// Id format desc: https://github.com/dotnet/runtime/blob/master/src/libraries/System.Diagnostics.DiagnosticSource/src/ActivityUserGuide.md#id-format
     /// </summary>
-    public class WickesActivity : IDisposable
+    public class ExpressActivity : IDisposable
     {
         private static long _actionCounter;
         private const int MaxSize = 200;
@@ -23,11 +23,11 @@ namespace Wickes
         private const char OverflowChar = '#';
 
         [ThreadStatic]
-        private static WickesActivity _current;
+        private static ExpressActivity _current;
 
         private readonly Stopwatch _watch;
 
-        private WickesActivity(string operationName, WickesActivity parent, IList<KeyValuePair<string,string>> baggage = null)
+        private ExpressActivity(string operationName, ExpressActivity parent, IList<KeyValuePair<string,string>> baggage = null)
         {
             OperationName = operationName;
             Parent = parent;
@@ -52,7 +52,7 @@ namespace Wickes
             _watch = Stopwatch.StartNew();
         }
 
-        private WickesActivity(string operationName, WickesActivity parent, string parentForeignId, IList<KeyValuePair<string, string>> baggage = null)
+        private ExpressActivity(string operationName, ExpressActivity parent, string parentForeignId, IList<KeyValuePair<string, string>> baggage = null)
         {
             OperationName = operationName;
             Parent = parent;
@@ -70,7 +70,7 @@ namespace Wickes
         }
 
         public string OperationName { get; private set; }
-        public WickesActivity Parent { get; private set; }
+        public ExpressActivity Parent { get; private set; }
         public string Id { get; private set; }
 
         public IList<KeyValuePair<string, string>> Baggage { get; private set; }
@@ -112,7 +112,7 @@ namespace Wickes
             }
         }
 
-        public WickesActivity GetRootParent()
+        public ExpressActivity GetRootParent()
         {
             var parent = this;
             while (parent.Parent != null)
@@ -123,7 +123,7 @@ namespace Wickes
             return parent;
         }
 
-        public static WickesActivity Current
+        public static ExpressActivity Current
         {
             get
             {
@@ -143,7 +143,7 @@ namespace Wickes
         {
             var next = GetNextActionNumber();
 
-            return string.Concat(BeginChar, WickesApp.InstanceId, NameDelimiterChar, next, DelimiterChar);
+            return string.Concat(BeginChar, ExpressApp.InstanceId, NameDelimiterChar, next, DelimiterChar);
         }
 
         public static string GenerateChildActivityId(string parentActionId)
@@ -177,7 +177,7 @@ namespace Wickes
                 builder.Append(DelimiterChar);
             }
 
-            builder.Append(WickesApp.InstanceId).Append(NameDelimiterChar).Append(next);
+            builder.Append(ExpressApp.InstanceId).Append(NameDelimiterChar).Append(next);
             builder.Append(DelimiterChar);
             return builder.ToString();
         }
@@ -208,17 +208,17 @@ namespace Wickes
             return next;
         }
 
-        public static WickesActivity Create(string operationName, IList<KeyValuePair<string, string>> baggage = null)
+        public static ExpressActivity Create(string operationName, IList<KeyValuePair<string, string>> baggage = null)
         {
-            var operation = new WickesActivity(operationName, _current, baggage);
+            var operation = new ExpressActivity(operationName, _current, baggage);
             _current = operation;
 
             return operation;
         }
 
-        public static WickesActivity Create(string operationName, string foreignActionId, IList<KeyValuePair<string, string>> baggage = null)
+        public static ExpressActivity Create(string operationName, string foreignActionId, IList<KeyValuePair<string, string>> baggage = null)
         {
-            var operation = new WickesActivity(operationName, _current, foreignActionId, baggage);
+            var operation = new ExpressActivity(operationName, _current, foreignActionId, baggage);
             _current = operation;
 
             return operation;

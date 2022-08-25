@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Wickes.DependencyInjection
+namespace Express.DependencyInjection
 {
     public static class ServiceProviderExtensions
     {

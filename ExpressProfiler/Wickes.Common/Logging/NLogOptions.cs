@@ -1,4 +1,4 @@
-﻿namespace Wickes.Logging
+﻿namespace Express.Logging
 {
     /// <summary>
     /// Options for logging to NLog with 

@@ -3,9 +3,9 @@ using NLog.Config;
 using System;
 using System.IO;
 using System.Xml;
-using Wickes.Resources;
+using Express.Resources;
 
-namespace Wickes.Logging
+namespace Express.Logging
 {
     public class NLogByXmlAppLoggerBuilder : NLogAppLoggerBuilder
     {
@@ -69,7 +69,7 @@ namespace Wickes.Logging
                 }
             }
 
-            config = WickesResourceManager.ReadCommon("nlog.config");
+            config = ExpressResourceManager.ReadCommon("nlog.config");
             return config;
         }
 

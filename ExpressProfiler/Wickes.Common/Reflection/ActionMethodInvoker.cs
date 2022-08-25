@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Wickes.Logging;
+using Express.Logging;
 
-namespace Wickes.Reflection
+namespace Express.Reflection
 {
     public class ActionMethodInvoker
     {

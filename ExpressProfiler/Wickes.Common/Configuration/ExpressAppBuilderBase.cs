@@ -1,12 +1,12 @@
-﻿using Wickes.Logging;
+﻿using Express.Logging;
 
-namespace Wickes.Configuration
+namespace Express.Configuration
 {
-    public abstract class WickesAppBuilderBase : IWickesApp
+    public abstract class ExpressAppBuilderBase : IExpressApp
     {
-        private static readonly ILogWriter Logger = InternalLogger.Create<WickesAppBuilderBase>(new DiagnosticsLogWriterFactory());
+        private static readonly ILogWriter Logger = InternalLogger.Create<ExpressAppBuilderBase>(new DiagnosticsLogWriterFactory());
 
-        protected WickesAppBuilderBase(string appName)
+        protected ExpressAppBuilderBase(string appName)
         {
             AppName = appName;
         }

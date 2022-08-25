@@ -1,12 +1,12 @@
 ﻿using System;
 
-namespace Wickes
+namespace Express
 {
     public static class TestErrorValidator
     {
         public static void Check(string text, string errorCode)
         {
-            if (!WickesApp.IsTestEnv || text == null)
+            if (!ExpressApp.IsTestEnv || text == null)
             {
                 return;
             }

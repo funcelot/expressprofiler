@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
 
-namespace Wickes.Logging
+namespace Express.Logging
 {
     public static class LoggerExtensions
     {
@@ -441,12 +441,12 @@ namespace Wickes.Logging
             var process = Process.GetCurrentProcess();
 
             logger.LogInformation("Starting app '{AppName}' for process '{ProcessName}', processId: '{ProcessId}' on machine '{MachineName}'.",
-                appName, process.ProcessName, process.Id, WickesApp.MachineName);
+                appName, process.ProcessName, process.Id, ExpressApp.MachineName);
 
             logger.LogInformation("Process CommandLine: '{CommandLine}'.", Environment.CommandLine);
             logger.LogInformation("Current user: '{UserName}', Domain: '{UserDomainName}'.", Environment.UserName, Environment.UserDomainName);
             logger.LogInformation("CurrentDirectory: '{CurrentDirectory}'.", Environment.CurrentDirectory);
-            logger.LogInformation("WickesApp InstanceId: '{InstanceId}', IsTestEnv: '{IsTestEnv}'.", WickesApp.InstanceId, WickesApp.IsTestEnv);
+            logger.LogInformation("ExpressApp InstanceId: '{InstanceId}', IsTestEnv: '{IsTestEnv}'.", ExpressApp.InstanceId, ExpressApp.IsTestEnv);
 
             var domain = AppDomain.CurrentDomain;
             logger.LogInformation("Domain BaseDirectory: '{BaseDirectory}', RelativeSearchPath: '{RelativeSearchPath}'", domain.BaseDirectory, domain.RelativeSearchPath);

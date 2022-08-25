@@ -2,9 +2,9 @@
 using System.Diagnostics;
 using System.IO;
 using System.Text;
-using Wickes.Helpers;
+using Express.Helpers;
 
-namespace Wickes.Logging
+namespace Express.Logging
 {
     public class DiagnosticsLogWriterFactory : ILogWriterFactory
     {
@@ -12,10 +12,10 @@ namespace Wickes.Logging
         {
             try
             {
-                var logFolder = WickesApp.GetEnvVariableSafe("BO_InternalLoggerFolder");
+                var logFolder = ExpressApp.GetEnvVariableSafe("BO_InternalLoggerFolder");
                 if (logFolder != null)
                 {
-                    var path = string.Format("BO_Internal_{0:yyyyMMdd}_{1}.log", DateTime.Now, WickesApp.ProcessId);
+                    var path = string.Format("BO_Internal_{0:yyyyMMdd}_{1}.log", DateTime.Now, ExpressApp.ProcessId);
                     path = Path.Combine(logFolder, path);
                     return new DiagnosticsFileLogWriter(name, path);
                 }
@@ -71,7 +71,7 @@ namespace Wickes.Logging
                 {
                     var process = Process.GetCurrentProcess();
 
-                    Log("Started AppLogger for process '{0}', processId: '{1}' on machine '{2}'.", process.ProcessName, process.Id, WickesApp.MachineName);
+                    Log("Started AppLogger for process '{0}', processId: '{1}' on machine '{2}'.", process.ProcessName, process.Id, ExpressApp.MachineName);
                     Log("CommandLine: '{0}'.", Environment.CommandLine);
                     Log("Current user: '{0}', Domain: '{1}'.", Environment.UserName, Environment.UserDomainName);
                     Log("CurrentDirectory: '{0}'.", Environment.CurrentDirectory);

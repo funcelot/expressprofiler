@@ -1,7 +1,7 @@
 ﻿using System.IO;
-using Wickes.Common;
+using Express.Common;
 
-namespace Wickes.Logging
+namespace Express.Logging
 {
     public class DefaultNLogVariablesResolverByAppSettings : NLogVariablesResolver
     {

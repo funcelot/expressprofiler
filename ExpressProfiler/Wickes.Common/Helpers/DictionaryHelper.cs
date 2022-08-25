@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Wickes.Helpers
+namespace Express.Helpers
 {
     public static class DictionaryHelper
     {

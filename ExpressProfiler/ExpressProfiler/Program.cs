@@ -1,6 +1,6 @@
 ﻿using System;
-using Wickes;
-using Wickes.Logging;
+using Express;
+using Express.Logging;
 
 namespace ExpressProfiler
 {
@@ -15,7 +15,7 @@ namespace ExpressProfiler
             ILogger Logger;
             try
             {
-                WickesAppLogger.Initialize(ExpressProfiler.versionString);
+                ExpressAppLogger.Initialize(ExpressProfiler.versionString);
                 Logger = AppLogger.CreateLogger<ExpressProfiler>();
                 using (var client = new ExpressProfiler())
                 {

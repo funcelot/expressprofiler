@@ -9,7 +9,7 @@ using System.IO;
 using System.Text;
 using System.Threading;
 using System.Xml.Serialization;
-using Wickes.Logging;
+using Express.Logging;
 
 namespace ExpressProfiler
 {

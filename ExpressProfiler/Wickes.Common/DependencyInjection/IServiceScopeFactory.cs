@@ -1,4 +1,4 @@
-﻿namespace Wickes.DependencyInjection
+﻿namespace Express.DependencyInjection
 {
     public interface IServiceScopeFactory
     {

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using NLog;
-using Wickes.Helpers;
+using Express.Helpers;
 
-namespace Wickes.Logging
+namespace Express.Logging
 {
     internal class NLogBeginScopeParser
     {

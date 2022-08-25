@@ -1,7 +1,7 @@
 ﻿using System;
 using NLog;
 
-namespace Wickes.Logging
+namespace Express.Logging
 {
     internal class NLogLogger : ILogger
     {

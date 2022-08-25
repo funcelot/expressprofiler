@@ -1,8 +1,8 @@
 ﻿using System;
-using Wickes.Logging;
-using Wickes.Helpers;
+using Express.Logging;
+using Express.Helpers;
 
-namespace Wickes.Common
+namespace Express.Common
 {
     public static class Logger
     {

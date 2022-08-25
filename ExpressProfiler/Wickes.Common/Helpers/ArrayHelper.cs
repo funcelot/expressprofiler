@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Wickes.Helpers
+namespace Express.Helpers
 {
     public static class ArrayHelper
     {

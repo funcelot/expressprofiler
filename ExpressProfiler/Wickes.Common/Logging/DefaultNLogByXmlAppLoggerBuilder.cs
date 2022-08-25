@@ -1,6 +1,6 @@
-﻿using Wickes.Helpers;
+﻿using Express.Helpers;
 
-namespace Wickes.Logging
+namespace Express.Logging
 {
     public class DefaultNLogByXmlAppLoggerBuilder : NLogByXmlAppLoggerBuilder
     {

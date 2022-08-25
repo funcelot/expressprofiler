@@ -2,7 +2,7 @@
 using System.Runtime.CompilerServices;
 using NLog.LayoutRenderers;
 
-namespace Wickes.Logging
+namespace Express.Logging
 {
     internal static class NLogGlobalSettings
     {
@@ -24,7 +24,7 @@ namespace Wickes.Logging
 
         private static string GetCurrentActivityId()
         {
-            var current = WickesActivity.Current;
+            var current = ExpressActivity.Current;
 
             return current != null ? current.Id : null;
         }

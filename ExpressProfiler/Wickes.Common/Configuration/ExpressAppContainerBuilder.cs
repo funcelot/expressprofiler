@@ -1,12 +1,12 @@
 ﻿using System;
-using Wickes.DependencyInjection;
-using Wickes.Logging;
+using Express.DependencyInjection;
+using Express.Logging;
 
-namespace Wickes.Configuration
+namespace Express.Configuration
 {
-    public class WickesAppContainerBuilder : WickesAppBuilderBase
+    public class ExpressAppContainerBuilder : ExpressAppBuilderBase
     {
-        public WickesAppContainerBuilder(string appName)
+        public ExpressAppContainerBuilder(string appName)
             : base(appName)
         {
 

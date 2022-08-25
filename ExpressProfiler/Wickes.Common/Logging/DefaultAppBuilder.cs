@@ -1,8 +1,8 @@
-﻿using Wickes.Configuration;
+﻿using Express.Configuration;
 
-namespace Wickes.Logging
+namespace Express.Logging
 {
-    public class DefaultAppBuilder : WickesAppBuilderBase
+    public class DefaultAppBuilder : ExpressAppBuilderBase
     {
         public DefaultAppBuilder(string appName)
             : base(appName)

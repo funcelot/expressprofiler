@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using NLog;
 
-namespace Wickes.Logging
+namespace Express.Logging
 {
     internal class MappedDiagnosticsLogicalContextScope : IDisposable
     {

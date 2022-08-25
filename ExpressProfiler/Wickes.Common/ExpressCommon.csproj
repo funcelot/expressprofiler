@@ -55,15 +55,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Annotations\AnnotationsCode.cs" />
-    <Compile Include="Configuration\IWickesAppBuilder.cs" />
-    <Compile Include="Configuration\WickesAppBuilder.cs" />
-    <Compile Include="Configuration\WickesAppBuilderBase.cs" />
-    <Compile Include="Configuration\WickesAppContainerBuilder.cs" />
+    <Compile Include="Configuration\IExpressAppBuilder.cs" />
+    <Compile Include="Configuration\ExpressAppBuilder.cs" />
+    <Compile Include="Configuration\ExpressAppBuilderBase.cs" />
+    <Compile Include="Configuration\ExpressAppContainerBuilder.cs" />
     <Compile Include="DependencyInjection\IServiceProviderBuilder.cs" />
     <Compile Include="DependencyInjection\IServiceScope.cs" />
     <Compile Include="DependencyInjection\IServiceScopeFactory.cs" />
     <Compile Include="DependencyInjection\ServiceProviderBuilder.cs" />
-    <Compile Include="DependencyInjection\WickesServiceProvider.cs" />
+    <Compile Include="DependencyInjection\ExpressServiceProvider.cs" />
     <Compile Include="Diagnostics\Activity.cs" />
     <Compile Include="Diagnostics\ActivityBaggage.cs" />
     <Compile Include="Helpers\DirectoryHelper.cs" />
@@ -115,12 +115,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DependencyInjection\ServiceProviderExtensions.cs" />
     <Compile Include="Reflection\ActionMethodInvoker.cs" />
-    <Compile Include="Resources\WickesResourceManager.cs" />
+    <Compile Include="Resources\ExpressResourceManager.cs" />
     <Compile Include="System\Action.cs" />
     <Compile Include="System\Func.cs" />
     <Compile Include="TestErrorValidator.cs" />
-    <Compile Include="WickesApp.cs" />
-    <Compile Include="WickesAppLogger.cs" />
+    <Compile Include="ExpressApp.cs" />
+    <Compile Include="ExpressAppLogger.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="$(PROJ_ROOT)\src\.editorconfig">
