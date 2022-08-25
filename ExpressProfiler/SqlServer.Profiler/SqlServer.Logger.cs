@@ -91,10 +91,10 @@ namespace SqlServer.Logger
             m_columns.Add(new PerfColumn { Caption = "#", Column = -1 });
 
             StringBuilder columns = new StringBuilder();
-            columns.AppendFormat("{0}={{{0}}}", m_columns[0].Caption);
+            columns.AppendFormat("{0}='{{{1}}}'", m_columns[0].Caption, m_columns[0].Id);
             for (int i = 1; i < m_columns.Count; i++)
             {
-                columns.AppendFormat(" {0}={{{0}}}", m_columns[i].Id, m_columns[i].Id);
+                columns.AppendFormat(" {0}='{{{1}}}'", m_columns[i].Caption, m_columns[i].Id);
             }
             m_logging = columns.ToString();
 
