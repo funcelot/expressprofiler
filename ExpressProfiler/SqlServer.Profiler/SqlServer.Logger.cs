@@ -570,6 +570,7 @@ namespace SqlServer.Logger
                 m_Thr = new Thread(ProfilerThread) { IsBackground = true, Priority = ThreadPriority.Lowest };
                 m_Thr.Start();
 
+
                 m_timer = new Timer(TimerThread, null, 0, Program.SleepInterval);
 
                 m_profiling = true;
@@ -659,12 +660,15 @@ namespace SqlServer.Logger
             {
                 return;
             }
+            Queue<ProfilerEvent> saved = m_events;
             lock (m_locker)
             {
-                while (m_events.Count != 0 && !Program.Exit)
-                {
-                    NewEventArrived(m_events.Dequeue());
-                }
+                saved = m_events;
+                m_events = new Queue<ProfilerEvent>(10);
+            }
+            while (!Program.Exit && saved.Count != 0)
+            {
+                NewEventArrived(saved.Dequeue());
             }
         }
 
