@@ -5,12 +5,12 @@ using SqlServer.Helpers;
 
 namespace SqlServer.Resources
 {
-    public class ExpressResourceManager
+    public class ResourceManager
     {
         private readonly Assembly _assembly;
         private readonly string _prefix;
 
-        public ExpressResourceManager(Assembly assembly, string prefix = null)
+        public ResourceManager(Assembly assembly, string prefix = null)
         {
             _assembly = assembly;
             _prefix = prefix;
@@ -62,22 +62,22 @@ namespace SqlServer.Resources
             }
         }
 
-        public static ExpressResourceManager Create<T>(string prefix = null)
+        public static ResourceManager Create<T>(string prefix = null)
         {
             var type = typeof(T);
-            return new ExpressResourceManager(type.Assembly, prefix ?? type.Namespace);
+            return new ResourceManager(type.Assembly, prefix ?? type.Namespace);
         }
 
-        public static ExpressResourceManager CreateDefault<T>()
+        public static ResourceManager CreateDefault<T>()
         {
             var type = typeof(T);
-            return new ExpressResourceManager(type.Assembly, type.Namespace + ".Resources");
+            return new ResourceManager(type.Assembly, type.Namespace + ".Resources");
         }
 
 
         public static string ReadCommon(string key)
         {
-            var manager = Create<ExpressResourceManager>();
+            var manager = Create<ResourceManager>();
 
             return manager.Read(key);
         }

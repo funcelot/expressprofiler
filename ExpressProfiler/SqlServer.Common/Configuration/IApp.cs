@@ -2,7 +2,7 @@
 
 namespace SqlServer.Configuration
 {
-    public interface IExpressApp
+    public interface IApp
     {
         string AppName { get; }
         ILogger Initialize();

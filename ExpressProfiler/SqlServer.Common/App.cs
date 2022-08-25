@@ -52,7 +52,7 @@ namespace SqlServer
 
         public static IServiceProvider ServiceProvider { get; private set; }
 
-        public static ILogger EnsureStarted(Func<IExpressApp> createApp)
+        public static ILogger EnsureStarted(Func<IApp> createApp)
         {
             lock (_locker)
             {
@@ -73,14 +73,14 @@ namespace SqlServer
             }
         }
 
-        public static ILogger EnsureStarted(IExpressApp builder)
+        public static ILogger EnsureStarted(IApp builder)
         {
             return EnsureStarted(() => builder);
         }
 
         public static ILogger EnsureStarted(string appName)
         {
-            return EnsureStarted(() => new ExpressAppBuilder(appName));
+            return EnsureStarted(() => new AppBuilder(appName));
         }
     }
 }

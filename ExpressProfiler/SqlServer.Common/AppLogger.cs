@@ -16,7 +16,7 @@ namespace SqlServer
             return Initialize(appLoggerName);
         }
 
-        public static ILogger Initialize<T>(string appLoggerName = "ExpressAppLogger") where T : IExpressApp
+        public static ILogger Initialize<T>(string appLoggerName = "ExpressAppLogger") where T : IApp
         {
             try
             {

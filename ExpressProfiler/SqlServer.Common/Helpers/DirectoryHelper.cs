@@ -43,7 +43,7 @@ namespace SqlServer.Helpers
             }
             try
             {
-                return ExpressResourceManager.ReadCommon(fileName);
+                return ResourceManager.ReadCommon(fileName);
             }
             catch (Exception ex)
             {

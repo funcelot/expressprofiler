@@ -4,9 +4,9 @@ using SqlServer.Logging;
 
 namespace SqlServer.Configuration
 {
-    public class ExpressAppContainerBuilder : ExpressAppBuilderBase
+    public class AppContainerBuilder : AppBuilderBase
     {
-        public ExpressAppContainerBuilder(string appName)
+        public AppContainerBuilder(string appName)
             : base(appName)
         {
 

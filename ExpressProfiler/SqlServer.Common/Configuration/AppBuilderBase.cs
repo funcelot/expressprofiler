@@ -2,11 +2,11 @@
 
 namespace SqlServer.Configuration
 {
-    public abstract class ExpressAppBuilderBase : IExpressApp
+    public abstract class AppBuilderBase : IApp
     {
-        private static readonly ILogWriter Logger = InternalLogger.Create<ExpressAppBuilderBase>(new DiagnosticsLogWriterFactory());
+        private static readonly ILogWriter Logger = InternalLogger.Create<AppBuilderBase>(new DiagnosticsLogWriterFactory());
 
-        protected ExpressAppBuilderBase(string appName)
+        protected AppBuilderBase(string appName)
         {
             AppName = appName;
         }

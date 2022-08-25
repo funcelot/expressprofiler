@@ -69,7 +69,7 @@ namespace SqlServer.Logging
                 }
             }
 
-            config = ExpressResourceManager.ReadCommon("nlog.config");
+            config = ResourceManager.ReadCommon("nlog.config");
             return config;
         }
 

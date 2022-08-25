@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 namespace SqlServer.DependencyInjection
 {
-    public class ExpressServiceProvider : IServiceProvider
+    public class ServiceProvider : IServiceProvider
     {
         private readonly Dictionary<Type, Func<object>> _registrations;
 
-        public ExpressServiceProvider(Dictionary<Type, Func<object>> registrations)
+        public ServiceProvider(Dictionary<Type, Func<object>> registrations)
         {
             _registrations = registrations;
         }

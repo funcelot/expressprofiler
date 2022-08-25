@@ -2,7 +2,7 @@
 
 namespace SqlServer.Logging
 {
-    public class DefaultAppBuilder : ExpressAppBuilderBase
+    public class DefaultAppBuilder : AppBuilderBase
     {
         public DefaultAppBuilder(string appName)
             : base(appName)

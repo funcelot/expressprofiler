@@ -119,7 +119,7 @@ namespace SqlServer.Logging
             return CreateLogger(typeof(T));
         }
 
-        public static ILogger CreateLogger<T>(string appLoggerName) where T : IExpressApp
+        public static ILogger CreateLogger<T>(string appLoggerName) where T : IApp
         {
             try
             {

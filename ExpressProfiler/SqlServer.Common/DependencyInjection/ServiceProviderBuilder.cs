@@ -14,7 +14,7 @@ namespace SqlServer.DependencyInjection
 
         public IServiceProvider Build()
         {
-            return new ExpressServiceProvider(_registrations);
+            return new ServiceProvider(_registrations);
         }
     }
 }
