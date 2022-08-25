@@ -35,7 +35,7 @@ namespace SqlServer.Logger
         private string m_servername = "";
         private string m_username = "";
         private string m_userpassword = "";
-        private string m_record = "";
+        private string m_logging = "";
         Queue<ProfilerEvent> m_events = new Queue<ProfilerEvent>(10);
         private readonly List<PerfColumn> m_columns = new List<PerfColumn>();
         private bool m_success = false;
@@ -51,15 +51,18 @@ namespace SqlServer.Logger
 
         public SqlServerLogger()
         {
+            m_servername = Properties.Settings.Default.ServerName;
+            m_username = Properties.Settings.Default.UserName;
+            m_userpassword = Properties.Settings.Default.UserPassword;
+
+            m_currentsettings = GetDefaultSettings();
+
             if (!ParseCommandLine())
             {
                 return;
             }
 
-            m_servername = Properties.Settings.Default.ServerName;
-            m_username = Properties.Settings.Default.UserName;
-            m_currentsettings = GetDefaultSettings();
-
+            SaveDefaultSettings();
 
             m_columns.Add(new PerfColumn { Caption = "Event Class", Column = ProfilerEventColumns.EventClass });
             m_columns.Add(new PerfColumn { Caption = "Text Data", Column = ProfilerEventColumns.TextData });
@@ -80,12 +83,12 @@ namespace SqlServer.Logger
             m_columns.Add(new PerfColumn { Caption = "#", Column = -1 });
 
             StringBuilder columns = new StringBuilder();
-            columns.Append(m_columns[0].Caption);
+            columns.AppendFormat("{0}={{{0}}}", m_columns[0].Caption);
             for (int i = 1; i < m_columns.Count; i++)
             {
-                columns.AppendFormat(" {0}", m_columns[i].Caption);
+                columns.AppendFormat(" {0}={{{0}}}", m_columns[i].Caption);
             }
-            m_record = columns.ToString();
+            m_logging = columns.ToString();
 
             m_timer = new Timer(timer_Elapsed, null, 0, Timeout.Infinite);
         }
@@ -297,7 +300,7 @@ namespace SqlServer.Logger
                     pc.Column == -1 ?
                     m_EventCount.ToString("#,0") : (ProfilerEventColumns.Duration == pc.Column ? (evt.Duration / 1000).ToString(pc.Format) : evt.GetFormattedData(pc.Column, pc.Format)) ?? "";
             }
-            Logger.LogInformation(m_record, data);
+            Logger.LogInformation(m_logging, data);
         }
 
         private void ProfilerThread(Object state)
@@ -554,8 +557,6 @@ namespace SqlServer.Logger
                 m_Cmd.CommandTimeout = 0;
 
                 m_Rdr.SetFilter(ProfilerEventColumns.ApplicationName, LogicalOperators.AND, ComparisonOperators.NotLike, "SqlServer Logger");
-
-                SaveDefaultSettings();
 
                 StartProfilerThread();
 
