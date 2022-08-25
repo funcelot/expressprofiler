@@ -55,14 +55,14 @@ namespace SqlServer.Logger
             m_username = Properties.Settings.Default.UserName;
             m_userpassword = Properties.Settings.Default.UserPassword;
 
-            m_currentsettings = GetDefaultSettings();
-
             if (!ParseCommandLine())
             {
                 return;
             }
 
             SaveDefaultSettings();
+
+            m_currentsettings = GetDefaultSettings();
 
             m_columns.Add(new PerfColumn { Caption = "Event Class", Column = ProfilerEventColumns.EventClass });
             m_columns.Add(new PerfColumn { Caption = "Text Data", Column = ProfilerEventColumns.TextData });
@@ -327,7 +327,7 @@ namespace SqlServer.Logger
 
         private  SqlConnection GetConnection()
         {
-            var security = (m_username != null && m_userpassword != null) ? string.Format("User Id={0}; Password='{1}'", m_username, m_userpassword) : "Integrated Security=SSPI";
+            var security = !string.IsNullOrEmpty(m_username) && !string.IsNullOrEmpty(m_userpassword) ? string.Format("User Id={0}; Password='{1}'", m_username, m_userpassword) : "Integrated Security=SSPI";
             return new SqlConnection
             {
                 ConnectionString = string.Format(@"Data Source={0}; Initial Catalog=master; Application Name=SqlServer Logger; {1}", m_servername, security)
@@ -602,8 +602,8 @@ namespace SqlServer.Logger
 	    private void SaveDefaultSettings()
 	    {
 		    Properties.Settings.Default.ServerName = m_servername;
-            Properties.Settings.Default.UserName = (m_username != null && m_userpassword != null) ? m_username : "";
-            Properties.Settings.Default.UserPassword = (m_username != null && m_userpassword != null) ? m_userpassword : "";
+            Properties.Settings.Default.UserName = m_username;
+            Properties.Settings.Default.UserPassword = m_userpassword;
             Properties.Settings.Default.Save();
 	    }
 
