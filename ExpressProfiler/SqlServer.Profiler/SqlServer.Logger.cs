@@ -110,7 +110,6 @@ namespace SqlServer.Logger
             catch (Exception e)
             {
                 Logger.LogError(e, "Error");
-                //ex
             }
             return TraceProperties.TraceSettings.GetDefaultSettings();
         }
