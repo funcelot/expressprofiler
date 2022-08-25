@@ -18,6 +18,7 @@ namespace SqlServer.Logger
                 Logger = Logging.AppLogger.CreateLogger<SqlServerLogger>();
                 using (var client = new SqlServerLogger())
                 {
+                    Logger.LogInformation("--------------------------------------------------------------------------------");
                     client.StartProfiling();
                 }
             }
