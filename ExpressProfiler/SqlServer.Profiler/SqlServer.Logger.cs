@@ -88,7 +88,7 @@ namespace SqlServer.Logger
             if (m_currentsettings.EventsColumns.HostName) 
                 m_columns.Add(new PerfColumn { Id = "H", Caption = "Host name", Column = ProfilerEventColumns.HostName });
 
-            m_columns.Add(new PerfColumn { Caption = "#", Column = -1 });
+            m_columns.Add(new PerfColumn { Id="#", Caption = "#", Column = -1 });
 
             StringBuilder columns = new StringBuilder();
             columns.AppendFormat("{0}='{{{1}}}'", m_columns[0].Caption, m_columns[0].Id);
