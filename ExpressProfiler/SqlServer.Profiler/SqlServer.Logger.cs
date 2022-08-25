@@ -11,11 +11,11 @@ using System.Threading;
 using System.Xml.Serialization;
 using Express.Logging;
 
-namespace ExpressProfiler
+namespace SqlServer.Logger
 {
-    public class ExpressProfiler: IDisposable
+    public class SqlServerLogger: IDisposable
     {
-        private static readonly ILogger Logger = AppLogger.CreateLogger<ExpressProfiler>();
+        private static readonly ILogger Logger = AppLogger.CreateLogger<SqlServerLogger>();
 
 
         public class PerfColumn
@@ -47,9 +47,9 @@ namespace ExpressProfiler
         internal bool matchCase = false;
         internal bool wholeWord = false;
 
-        public const string versionString = "Express Profiler v2.2";
+        public const string versionString = "SqlServer Logger v1.0";
 
-        public ExpressProfiler()
+        public SqlServerLogger()
         {
             if (!ParseCommandLine())
             {
@@ -327,7 +327,7 @@ namespace ExpressProfiler
             var security = (m_username != null && m_userpassword != null) ? string.Format("User Id={0}; Password='{1}'", m_username, m_userpassword) : "Integrated Security=SSPI";
             return new SqlConnection
             {
-                ConnectionString = string.Format(@"Data Source={0}; Initial Catalog=master; Application Name=Express Profiler; {1}", m_servername, security)
+                ConnectionString = string.Format(@"Data Source={0}; Initial Catalog=master; Application Name=SqlServer Logger; {1}", m_servername, security)
             };
         }
 
@@ -553,7 +553,7 @@ namespace ExpressProfiler
                 m_Cmd.Connection = m_Conn;
                 m_Cmd.CommandTimeout = 0;
 
-                m_Rdr.SetFilter(ProfilerEventColumns.ApplicationName, LogicalOperators.AND, ComparisonOperators.NotLike, "Express Profiler");
+                m_Rdr.SetFilter(ProfilerEventColumns.ApplicationName, LogicalOperators.AND, ComparisonOperators.NotLike, "SqlServer Logger");
 
                 SaveDefaultSettings();
 

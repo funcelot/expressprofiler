@@ -7,8 +7,8 @@
     <ProjectGuid>{6B15233C-4392-44F8-BEDA-286DB1A59E3E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Wickes</RootNamespace>
-    <AssemblyName>Wickes.Common</AssemblyName>
+    <RootNamespace>Express</RootNamespace>
+    <AssemblyName>SqlServer.Common</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -16,7 +16,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>$(OUT_DIR)\build\Oasys3</OutputPath>
+    <OutputPath>..\build</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -24,7 +24,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>$(OUT_DIR)\build\Oasys3</OutputPath>
+    <OutputPath>..\build</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -123,7 +123,7 @@
     <Compile Include="ExpressAppLogger.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="$(PROJ_ROOT)\src\.editorconfig">
+    <None Include="..\src\.editorconfig">
       <Link>.editorconfig</Link>
     </None>
     <None Include="packages.config" />
@@ -131,14 +131,4 @@
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PreBuildEvent>echo Use Compiler version '$(LangVersion)'</PreBuildEvent>
-  </PropertyGroup>
-  <PropertyGroup>
-    <PostBuildEvent>
-      "$(PROJ_ROOT)\Libs\till_3rd_party\regasm.exe" "$(OUT_DIR)\build\Oasys3\$(TargetFileName)" /u
-      "$(PROJ_ROOT)\Libs\till_3rd_party\tlbexp.exe" "$(TargetDir)$(TargetFileName)" /nologo /out:"$(OUT_DIR)\build\Oasys3\$(TargetName).tlb"
-      "$(PROJ_ROOT)\Libs\till_3rd_party\regasm.exe" "$(OUT_DIR)\build\Oasys3\$(TargetFileName)" /codebase /tlb:"$(OUT_DIR)\build\Oasys3\$(TargetName).tlb"
-    </PostBuildEvent>
-  </PropertyGroup>
 </Project>
